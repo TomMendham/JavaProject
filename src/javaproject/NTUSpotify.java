@@ -41,10 +41,10 @@ public class NTUSpotify extends javax.swing.JFrame {
         UsernameLabel1 = new javax.swing.JLabel();
         PasswordLabel1 = new javax.swing.JLabel();
         UsernameTextField1 = new javax.swing.JTextField();
-        PasswordTextField1 = new javax.swing.JTextField();
         LoginButton = new javax.swing.JButton();
         RegisterButton1 = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
         register = new javax.swing.JPanel();
         MonthComboBox = new javax.swing.JComboBox<>();
         YearTextField = new javax.swing.JTextField();
@@ -64,18 +64,24 @@ public class NTUSpotify extends javax.swing.JFrame {
         DayTextField = new javax.swing.JTextField();
         mainjTabbedPane = new javax.swing.JTabbedPane();
         homejPanel = new javax.swing.JPanel();
-        postsjPanel = new javax.swing.JPanel();
-        friendsChatjPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        requestsjList = new javax.swing.JList<>();
+        friendList = new javax.swing.JList<>();
+        friendLabel = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        connectedPeoplejList = new javax.swing.JList<>();
-        connectedPeoplejLabel = new javax.swing.JLabel();
-        requestsjLabel = new javax.swing.JLabel();
-        requestFriendshipjButton = new javax.swing.JButton();
-        chatjButton = new javax.swing.JButton();
-        acceptjButton = new javax.swing.JButton();
-        refusejButton = new javax.swing.JButton();
+        sharedSongs = new javax.swing.JList<>();
+        jButton1 = new javax.swing.JButton();
+        informationLabel = new javax.swing.JLabel();
+        sharedSongsLabel = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        informationList = new javax.swing.JTextArea();
+        logoutButton = new javax.swing.JButton();
+        postsjPanel = new javax.swing.JPanel();
+        sendButton = new javax.swing.JButton();
+        postTextField = new javax.swing.JTextField();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        postTextArea = new javax.swing.JTextArea();
+        postLabel = new javax.swing.JLabel();
+        friendsChatjPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,30 +118,36 @@ public class NTUSpotify extends javax.swing.JFrame {
             }
         });
 
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout logInLayout = new javax.swing.GroupLayout(logIn);
         logIn.setLayout(logInLayout);
         logInLayout.setHorizontalGroup(
             logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logInLayout.createSequentialGroup()
-                .addContainerGap(189, Short.MAX_VALUE)
+                .addContainerGap(211, Short.MAX_VALUE)
                 .addGroup(logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logInLayout.createSequentialGroup()
-                        .addGroup(logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(logInLayout.createSequentialGroup()
-                                .addComponent(UsernameLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(UsernameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(logInLayout.createSequentialGroup()
-                                .addComponent(PasswordLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(PasswordTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(211, 211, 211))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logInLayout.createSequentialGroup()
                         .addGroup(logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ExitButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(LoginButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(RegisterButton1, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addGap(229, 229, 229))))
+                        .addGap(229, 229, 229))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logInLayout.createSequentialGroup()
+                        .addGroup(logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(logInLayout.createSequentialGroup()
+                                .addComponent(PasswordLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(logInLayout.createSequentialGroup()
+                                .addComponent(UsernameLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(UsernameTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(211, 211, 211))))
         );
         logInLayout.setVerticalGroup(
             logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,8 +158,8 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addComponent(UsernameLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(PasswordTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(PasswordLabel1))
+                    .addComponent(PasswordLabel1)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(LoginButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -253,7 +265,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(AddButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                            .addComponent(DeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -296,125 +308,130 @@ public class NTUSpotify extends javax.swing.JFrame {
 
         mainPanel.add(register, "card2");
 
+        jScrollPane1.setViewportView(friendList);
+
+        friendLabel.setText("Friends");
+
+        jScrollPane3.setViewportView(sharedSongs);
+
+        jButton1.setText("Play");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        informationLabel.setText("Information");
+
+        sharedSongsLabel.setText("Shared Songs");
+
+        informationList.setColumns(20);
+        informationList.setRows(5);
+        jScrollPane5.setViewportView(informationList);
+
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout homejPanelLayout = new javax.swing.GroupLayout(homejPanel);
         homejPanel.setLayout(homejPanelLayout);
         homejPanelLayout.setHorizontalGroup(
             homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
+            .addGroup(homejPanelLayout.createSequentialGroup()
+                .addContainerGap(18, Short.MAX_VALUE)
+                .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(friendLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(informationLabel)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(sharedSongsLabel)
+                    .addGroup(homejPanelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logoutButton)))))
         );
+
+        homejPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, logoutButton});
+
         homejPanelLayout.setVerticalGroup(
             homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGroup(homejPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(friendLabel)
+                    .addComponent(informationLabel)
+                    .addComponent(sharedSongsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane5)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homejPanelLayout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(logoutButton)))
+                .addContainerGap())
         );
 
         mainjTabbedPane.addTab("Home", homejPanel);
+
+        sendButton.setText("Send");
+
+        postTextArea.setColumns(20);
+        postTextArea.setRows(5);
+        jScrollPane4.setViewportView(postTextArea);
+
+        postLabel.setText("Post:");
 
         javax.swing.GroupLayout postsjPanelLayout = new javax.swing.GroupLayout(postsjPanel);
         postsjPanel.setLayout(postsjPanelLayout);
         postsjPanelLayout.setHorizontalGroup(
             postsjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 564, Short.MAX_VALUE)
+            .addGroup(postsjPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(postsjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(postsjPanelLayout.createSequentialGroup()
+                        .addComponent(postLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(postTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sendButton))
+                    .addComponent(jScrollPane4))
+                .addContainerGap())
         );
         postsjPanelLayout.setVerticalGroup(
             postsjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 182, Short.MAX_VALUE)
+            .addGroup(postsjPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(postsjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sendButton)
+                    .addComponent(postTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(postLabel))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         mainjTabbedPane.addTab("Posts", postsjPanel);
-
-        requestsjList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "one", "two", "there" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        requestsjList.setToolTipText("");
-        jScrollPane1.setViewportView(requestsjList);
-
-        jScrollPane3.setViewportView(connectedPeoplejList);
-
-        connectedPeoplejLabel.setText("List of connected people");
-
-        requestsjLabel.setText("Friendship Requests");
-
-        requestFriendshipjButton.setText("Request Friendship");
-        requestFriendshipjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                requestFriendshipjButtonActionPerformed(evt);
-            }
-        });
-
-        chatjButton.setText("Chat");
-        chatjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chatjButtonActionPerformed(evt);
-            }
-        });
-
-        acceptjButton.setText("Accept");
-        acceptjButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptjButtonActionPerformed(evt);
-            }
-        });
-
-        refusejButton.setText("Refuse");
-        refusejButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refusejButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout friendsChatjPanelLayout = new javax.swing.GroupLayout(friendsChatjPanel);
         friendsChatjPanel.setLayout(friendsChatjPanelLayout);
         friendsChatjPanelLayout.setHorizontalGroup(
             friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(connectedPeoplejLabel)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(requestFriendshipjButton)
-                    .addComponent(chatjButton))
-                .addGap(29, 29, 29)
-                .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(requestsjLabel)
-                    .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(acceptjButton)
-                            .addComponent(refusejButton))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 586, Short.MAX_VALUE)
         );
         friendsChatjPanelLayout.setVerticalGroup(
             friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(requestFriendshipjButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chatjButton)
-                .addGap(78, 78, 78))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                        .addComponent(requestsjLabel)
-                        .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(acceptjButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(refusejButton))))
-                    .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                        .addComponent(connectedPeoplejLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addGap(0, 188, Short.MAX_VALUE)
         );
 
         mainjTabbedPane.addTab("Friends & Chat", friendsChatjPanel);
@@ -435,7 +452,7 @@ public class NTUSpotify extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -492,23 +509,20 @@ public class NTUSpotify extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_ExitButtonActionPerformed
 
-    private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_requestFriendshipjButtonActionPerformed
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
-    private void chatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatjButtonActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_chatjButtonActionPerformed
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void refusejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusejButtonActionPerformed
-        String request = requestsjList.getSelectedValue();
-        ListModel.removeElement(request); 
-    }//GEN-LAST:event_refusejButtonActionPerformed
-
-    private void acceptjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptjButtonActionPerformed
-        String request = requestsjList.getSelectedValue();
-        ListModel.removeElement(request);
-    }//GEN-LAST:event_acceptjButtonActionPerformed
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        mainPanel.removeAll();
+        mainPanel.add(logIn);
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }//GEN-LAST:event_logoutButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -561,7 +575,6 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JLabel PasswordLabel1;
     private javax.swing.JTextField PasswordTextField;
-    private javax.swing.JTextField PasswordTextField1;
     private javax.swing.JButton RegisterButton;
     private javax.swing.JButton RegisterButton1;
     private javax.swing.JLabel UsernameLabel;
@@ -569,24 +582,31 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JTextField UsernameTextField;
     private javax.swing.JTextField UsernameTextField1;
     private javax.swing.JTextField YearTextField;
-    private javax.swing.JButton acceptjButton;
-    private javax.swing.JButton chatjButton;
-    private javax.swing.JLabel connectedPeoplejLabel;
-    private javax.swing.JList<String> connectedPeoplejList;
+    private javax.swing.JLabel friendLabel;
+    private javax.swing.JList<String> friendList;
     private javax.swing.JPanel friendsChatjPanel;
     private javax.swing.JPanel homejPanel;
+    private javax.swing.JLabel informationLabel;
+    private javax.swing.JTextArea informationList;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JPanel logIn;
+    private javax.swing.JButton logoutButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JTabbedPane mainjTabbedPane;
+    private javax.swing.JLabel postLabel;
+    private javax.swing.JTextArea postTextArea;
+    private javax.swing.JTextField postTextField;
     private javax.swing.JPanel postsjPanel;
-    private javax.swing.JButton refusejButton;
     private javax.swing.JPanel register;
-    private javax.swing.JButton requestFriendshipjButton;
-    private javax.swing.JLabel requestsjLabel;
-    private javax.swing.JList<String> requestsjList;
+    private javax.swing.JButton sendButton;
+    private javax.swing.JList<String> sharedSongs;
+    private javax.swing.JLabel sharedSongsLabel;
     // End of variables declaration//GEN-END:variables
  
     private void setIcon() {
