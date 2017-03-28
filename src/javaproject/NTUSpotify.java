@@ -656,6 +656,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         String isCorrect = socketClient.checkCredentials(username,password);
                 
         if (isCorrect == "correct"){
+            label.setText("");
         mainPanel.removeAll();
         mainPanel.add(home);
         mainPanel.repaint();
