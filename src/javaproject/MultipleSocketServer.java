@@ -19,7 +19,7 @@ public class MultipleSocketServer implements Runnable {
     
      public static void main(String[] args) {
         int port = 19999;
-        int count = 0;
+        int count = 0; 
     try{
       ServerSocket socket1 = new ServerSocket(port);
       System.out.println("MultipleSocketServer Initialized");
@@ -28,6 +28,8 @@ public class MultipleSocketServer implements Runnable {
         Runnable runnable = new MultipleSocketServer(connection, ++count);
         Thread thread = new Thread(runnable);
         thread.start();
+        Thread t1 = new Thread( new readingFile("input.txt"));
+        t1.start();
       }
     }
     catch (Exception e) {}
@@ -47,8 +49,7 @@ public void run() {
         process.append((char)character);
       }
       System.out.println(process);
-      
-      
+
       TimeStamp = new java.util.Date().toString();
       String returnCode = "MultipleSocketServer repsonded at "+ TimeStamp + (char) 13;
       BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
@@ -66,5 +67,33 @@ public void run() {
       catch (IOException e){}
     }
 }
+
+class readingFile implement Runnable{
+String fileName;
+             
+          public readingFile(String _fileName){
+              fileName = _fileName;
+          }
+          
+          public void run() {
+             try {
+             File file = new File(fileName);
+             FileReader fileReader = new FileReader(file);
+             BufferedReader bufferedReader = new BufferedReader(fileReader);
+             StringBuffer stringBuffer = new StringBuffer();
+             String line;
+             while ((line = bufferedReader.readLine()) !=null) {
+                stringBuffer.append(line);
+                stringBuffer.append("\n");
+             }
+             fileReader.close();
+             System.out.println(stringBuffer.toString());
+
+            }
+             catch (IOException e) {
+              e.printStackTrace();
+          }
+        }   
+    }
 }
 
