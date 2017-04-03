@@ -25,11 +25,9 @@ public class MultipleSocketServer implements Runnable {
       System.out.println("MultipleSocketServer Initialized");
       while (true) {
         Socket connection = socket1.accept();
-        Runnable runnable = new MultipleSocketServer(connection, ++count);
+        MultipleSocketServer runnable = new MultipleSocketServer(connection, ++count);
         Thread thread = new Thread(runnable);
         thread.start();
-        Thread t1 = new Thread( new readingFile("input.txt"));
-        t1.start();
       }
     }
     catch (Exception e) {}
@@ -45,17 +43,33 @@ public void run() {
       InputStreamReader isr = new InputStreamReader(is);
       int character;
       StringBuffer process = new StringBuffer();
+      
       while((character = isr.read()) != 13) {
         process.append((char)character);
       }
       System.out.println(process);
-
+      
+      //Splitting the input into an array
+      String[] parts = process.toString().split("-");   
+      
+      //Loop over the string for identifiers for functions
+      for (int i = 0; i < parts.length; i++){
+          if (parts[i].equals("readFile"))
+          {
+          //Call to reading file function
+          Thread t1 = new Thread(new readingFile("input.txt"));
+          t1.start();
+          }
+      }
+      
+      //Return message to sent
       TimeStamp = new java.util.Date().toString();
       String returnCode = "MultipleSocketServer repsonded at "+ TimeStamp + (char) 13;
       BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
       OutputStreamWriter osw = new OutputStreamWriter(os, "US-ASCII");
       osw.write(returnCode);
       osw.flush();
+      
     }
     catch (Exception e) {
       System.out.println(e);
@@ -67,33 +81,6 @@ public void run() {
       catch (IOException e){}
     }
 }
-
-class readingFile implement Runnable{
-String fileName;
-             
-          public readingFile(String _fileName){
-              fileName = _fileName;
-          }
-          
-          public void run() {
-             try {
-             File file = new File(fileName);
-             FileReader fileReader = new FileReader(file);
-             BufferedReader bufferedReader = new BufferedReader(fileReader);
-             StringBuffer stringBuffer = new StringBuffer();
-             String line;
-             while ((line = bufferedReader.readLine()) !=null) {
-                stringBuffer.append(line);
-                stringBuffer.append("\n");
-             }
-             fileReader.close();
-             System.out.println(stringBuffer.toString());
-
-            }
-             catch (IOException e) {
-              e.printStackTrace();
-          }
-        }   
-    }
 }
+
 

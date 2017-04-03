@@ -48,7 +48,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         RegisterButton1 = new javax.swing.JButton();
         ExitButton = new javax.swing.JButton();
         PasswordField = new javax.swing.JPasswordField();
-        label = new javax.swing.JLabel();
+        ConnectionLabel = new javax.swing.JLabel();
         register = new javax.swing.JPanel();
         RegisterButton = new javax.swing.JButton();
         CancelButton = new javax.swing.JButton();
@@ -170,14 +170,14 @@ public class NTUSpotify extends javax.swing.JFrame {
                                 .addComponent(UsernameField, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(logInLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(233, Short.MAX_VALUE))
         );
         logInLayout.setVerticalGroup(
             logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logInLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UsernameLabel1)
@@ -656,17 +656,17 @@ public class NTUSpotify extends javax.swing.JFrame {
         String isCorrect = socketClient.checkCredentials(username,password);
                 
         if (isCorrect == "correct"){
-            label.setText("");
+            ConnectionLabel.setText("");
         mainPanel.removeAll();
         mainPanel.add(home);
         mainPanel.repaint();
         mainPanel.revalidate();
         }
         else if (isCorrect == "server") {
-            label.setText("Server not running");
+            ConnectionLabel.setText("Server not running");
         }
         else {
-            label.setText("Username or password incorrect");
+            ConnectionLabel.setText("Username or password incorrect");
         }
     }//GEN-LAST:event_LoginButtonActionPerformed
 
@@ -763,6 +763,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
     private javax.swing.JButton CancelButton;
+    private javax.swing.JLabel ConnectionLabel;
     private javax.swing.JLabel DOBLabel;
     private javax.swing.JTextField DOBTextField;
     private javax.swing.JButton DeleteButton;
@@ -804,7 +805,6 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JLabel label;
     private javax.swing.JPanel logIn;
     private javax.swing.JButton logoutButton;
     private javax.swing.JPanel mainPanel;
