@@ -654,15 +654,15 @@ public class NTUSpotify extends javax.swing.JFrame {
         String username = UsernameField.getText();
         String password = PasswordField.getText();
         String isCorrect = socketClient.checkCredentials(username,password);
-                
-        if (isCorrect == "correct"){
-            ConnectionLabel.setText("");
+   
+        if (isCorrect.equals("correct")){
+        ConnectionLabel.setText("");
         mainPanel.removeAll();
         mainPanel.add(home);
         mainPanel.repaint();
         mainPanel.revalidate();
         }
-        else if (isCorrect == "server") {
+        else if (isCorrect.equals("server")) {
             ConnectionLabel.setText("Server not running");
         }
         else {

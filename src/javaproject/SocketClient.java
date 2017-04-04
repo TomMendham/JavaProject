@@ -28,14 +28,23 @@ public class SocketClient {
          OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
          
          //Message to send over server
-         String message = username + "-" + password + "-" + "readFile" + (char) 13;
+         String message = username + "-" + password + "-" + "checkCredentials" + (char) 13;
          //Writing the message and flushing the server
          osw.write(message);
          osw.flush();
          
+         BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
+         InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
+         StringBuffer input = new StringBuffer();
+         
+          int c;
+          while ( (c = isr.read()) != 13){
+              input.append( (char) c);
+          }
+                       
          //Close the connection
          connection.close();
-         isCorrect = "correct";
+         isCorrect = input.toString();
      }
      
     catch (IOException f) {
@@ -46,7 +55,7 @@ public class SocketClient {
       System.out.println("Exception: " + g);
       isCorrect = "server";
     }   
-    return isCorrect;
+    return (isCorrect);
  }
 }
 
