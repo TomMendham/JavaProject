@@ -123,6 +123,7 @@ public static void login(String username)
    try{
        FileWriter fw = new FileWriter("activeusers", true);
        fw.write(username + "\n");
+       System.out.println("Emil");
    }
    catch(IOException e){
        
