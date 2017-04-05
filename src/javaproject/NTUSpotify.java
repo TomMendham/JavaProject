@@ -60,10 +60,10 @@ public class NTUSpotify extends javax.swing.JFrame {
         UsernameLabel = new javax.swing.JLabel();
         UsernameTextField = new javax.swing.JTextField();
         PasswordLabel = new javax.swing.JLabel();
-        PasswordTextField = new javax.swing.JTextField();
         DOBLabel = new javax.swing.JLabel();
         DeleteButton = new javax.swing.JButton();
         DOBTextField = new javax.swing.JTextField();
+        RegisterPasswordField = new javax.swing.JPasswordField();
         home = new javax.swing.JTabbedPane();
         homejPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -198,6 +198,11 @@ public class NTUSpotify extends javax.swing.JFrame {
         mainPanel.add(logIn, "card3");
 
         RegisterButton.setText("Register");
+        RegisterButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RegisterButtonActionPerformed(evt);
+            }
+        });
 
         CancelButton.setText("Cancel");
         CancelButton.addActionListener(new java.awt.event.ActionListener() {
@@ -259,9 +264,9 @@ public class NTUSpotify extends javax.swing.JFrame {
                             .addComponent(UsernameLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(18, 18, 18)
                         .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(PasswordTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
-                            .addComponent(UsernameTextField)
-                            .addComponent(DOBTextField)))
+                            .addComponent(UsernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                            .addComponent(DOBTextField)
+                            .addComponent(RegisterPasswordField)))
                     .addGroup(registerLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(RegisterButton)
@@ -291,8 +296,8 @@ public class NTUSpotify extends javax.swing.JFrame {
                             .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PasswordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(PasswordLabel))
+                            .addComponent(PasswordLabel)
+                            .addComponent(RegisterPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(DOBLabel)
@@ -399,6 +404,7 @@ public class NTUSpotify extends javax.swing.JFrame {
 
         sendButton.setText("Send");
 
+        postTextArea.setEditable(false);
         postTextArea.setColumns(20);
         postTextArea.setRows(5);
         jScrollPane4.setViewportView(postTextArea);
@@ -656,6 +662,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         String isCorrect = socketClient.checkCredentials(username,password);
    
         if (isCorrect.equals("correct")){
+        socketClient.login(username);
         ConnectionLabel.setText("");
         mainPanel.removeAll();
         mainPanel.add(home);
@@ -724,6 +731,11 @@ public class NTUSpotify extends javax.swing.JFrame {
         mainPanel.revalidate();
     }//GEN-LAST:event_backjButtonActionPerformed
 
+    private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
+       String username = UsernameTextField.getText();
+       String password = RegisterPasswordField.getText();
+    }//GEN-LAST:event_RegisterButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -775,9 +787,9 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JPasswordField PasswordField;
     private javax.swing.JLabel PasswordLabel;
     private javax.swing.JLabel PasswordLabel1;
-    private javax.swing.JTextField PasswordTextField;
     private javax.swing.JButton RegisterButton;
     private javax.swing.JButton RegisterButton1;
+    private javax.swing.JPasswordField RegisterPasswordField;
     private javax.swing.JTextField UsernameField;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JLabel UsernameLabel1;
