@@ -57,7 +57,7 @@ public class SocketClient {
     }   
     return (isCorrect);
  }
- public void login(String username){
+ public String login(String username){
      String host = "localhost";
      int port = 19999;
      
@@ -75,9 +75,20 @@ public class SocketClient {
          //Writing the message and flushing the server
          osw.write(message);
          osw.flush();
-                       
+         
+         BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
+         InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
+         StringBuffer input = new StringBuffer();
+         
+          int c;
+          while ( (c = isr.read()) != 13){
+              input.append( (char) c);
+          }    
+          
+                  
          //Close the connection
          connection.close();
+         return(input.toString());
      }
      
     catch (IOException f) {
@@ -85,7 +96,8 @@ public class SocketClient {
     }
     catch (Exception g) {
       System.out.println("Exception: " + g);
-    }   
+    }
+     return ("");
  }
  
   public String registering(String username, String password, String dateOfBirth, String[]genres){
