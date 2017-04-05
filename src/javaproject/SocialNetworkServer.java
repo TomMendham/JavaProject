@@ -47,7 +47,7 @@ public void run() {
       while((character = isr.read()) != 13) {
         process.append((char)character);
       }
-         
+      
       //Splitting the input into an array
       String[] parts = process.toString().split("-");
       
@@ -64,6 +64,7 @@ public void run() {
           }
           else if(parts[i].equals("loginUser"))
           {
+              System.out.println("ADDING USER");
               SocialNetworkServer.login(parts[0]); 
           }
       }
@@ -121,11 +122,9 @@ public static String checkCredentials(String fileName, String username, String p
 public static void login(String username)
 {
    try{
-       FileWriter fw = new FileWriter("activeusers", true);
-       BufferedWriter bw = new BufferedWriter(fw);
-       PrintWriter out = new PrintWriter(bw);
-       
-       out.println(username);
+       FileWriter fw = new FileWriter("activeusers.txt", true);
+       fw.write("\n"+username);
+       fw.close();
    }
    catch(IOException e){
        

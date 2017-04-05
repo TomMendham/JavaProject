@@ -26,7 +26,7 @@ public class SocketClient {
          //Write the output to a buffered output and then to the writer
          BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());
          OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
-         
+   
          //Message to send over server
          String message = username + "-" + password + "-" + "checkCredentials" + (char) 13;
          //Writing the message and flushing the server
