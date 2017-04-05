@@ -122,10 +122,7 @@ public static void login(String username)
 {
    try{
        FileWriter fw = new FileWriter("activeusers", true);
-       BufferedWriter bw = new BufferedWriter(fw);
-       PrintWriter out = new PrintWriter(bw);
-       
-       out.println(username);
+       fw.write(username + "\n");
    }
    catch(IOException e){
        
