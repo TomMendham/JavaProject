@@ -64,7 +64,8 @@ public void run() {
           }
           else if(parts[i].equals("loginUser"))
           {
-              SocialNetworkServer.login(parts[0]); 
+              String usernames = SocialNetworkServer.login(parts[0]); 
+              osw.write(usernames + (char)13);
           }
       }
       osw.flush();
@@ -118,18 +119,37 @@ public static String checkCredentials(String fileName, String username, String p
     return("server");
     }
 
-public static void login(String username)
+public static String login(String username)
 {
-   try{
-       FileWriter fw = new FileWriter("activeusers", true);
-       BufferedWriter bw = new BufferedWriter(fw);
-       PrintWriter out = new PrintWriter(bw);
-       
-       out.println(username);
-   }
-   catch(IOException e){
-       
-   }
+    String usernames ="";
+  try(FileWriter fw = new FileWriter("activeusers.txt", true);
+    BufferedWriter bw = new BufferedWriter(fw);
+    PrintWriter out = new PrintWriter(bw))
+{
+    out.println(username + "-");
+        
+    BufferedReader br = new BufferedReader(new FileReader("activeusers.txt"));
+    try {
+        StringBuilder sb = new StringBuilder();
+        usernames = br.readLine();
+
+        while (usernames != null) {
+            sb.append(usernames);
+            sb.append("\n");
+            usernames = br.readLine();
+        }
+        return sb.toString();
+    }
+    finally {
+        br.close();
+    }
+    
+
+} 
+  catch (IOException e) {
+    
+}
+  return (usernames);
 }
 //Last bracket for class
 }

@@ -19,11 +19,13 @@ public class NTUSpotify extends javax.swing.JFrame {
     
     DefaultListModel<String> GenreListModel;
     DefaultListModel<String> RequestsListModel;
+    DefaultListModel<String> OnlineListModel;
     
     public NTUSpotify() {
         
         GenreListModel = new DefaultListModel<String>();
         RequestsListModel = new DefaultListModel<String>();
+        OnlineListModel = new DefaultListModel<String>();
         
         initComponents();
         setIcon();
@@ -442,6 +444,7 @@ public class NTUSpotify extends javax.swing.JFrame {
 
         home.addTab("Posts", postsjPanel);
 
+        connectedPeoplejList.setModel(OnlineListModel);
         jScrollPane6.setViewportView(connectedPeoplejList);
 
         connectedPeoplejLabel.setText("List of connected people");
@@ -662,7 +665,13 @@ public class NTUSpotify extends javax.swing.JFrame {
         String isCorrect = socketClient.checkCredentials(username,password);
    
         if (isCorrect.equals("correct")){
-        socketClient.login(username);
+        String usernames = socketClient.login(username);
+        String[] usernameList = usernames.split("-");
+        
+        for (int i = 0; i < usernameList.length; i++){
+            OnlineListModel.addElement(usernameList[i]);
+            }
+        
         ConnectionLabel.setText("");
         mainPanel.removeAll();
         mainPanel.add(home);
@@ -697,6 +706,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        OnlineListModel.removeAllElements();
         mainPanel.removeAll();
         mainPanel.add(logIn);
         mainPanel.repaint();
