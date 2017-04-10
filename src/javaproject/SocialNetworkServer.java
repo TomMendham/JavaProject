@@ -142,7 +142,7 @@ public static void logout(String username)
     
     //Set char type and username to delete
     String charset = "US-ASCII";
-    String delete = username;
+    String delete = username + "-";
     
     //Declare buffered reader and print writer
     BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
@@ -152,7 +152,11 @@ public static void logout(String username)
     for (String line; (line = br.readLine()) != null;) 
     {
     line = line.replace(delete, "");
-    pw.println(line);
+    line.trim();
+    if (line.length() > 0)
+        {
+         pw.println(line);
+        }
     }
     
     //Close file writer and print writer
