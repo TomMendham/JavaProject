@@ -57,7 +57,7 @@ public class SocketClient {
     }   
     return (isCorrect);
  }
- public void login(String username){
+ public void connect(String username, String identifier){
      String host = "localhost";
      int port = 19999;
      
@@ -71,7 +71,7 @@ public class SocketClient {
          OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
          
          //Message to send over server
-         String message = username + "-" + "loginUser" + (char) 13;
+         String message = username + "-" + identifier + (char) 13;
          //Writing the message and flushing the server
          osw.write(message);
          osw.flush();         
@@ -84,6 +84,7 @@ public class SocketClient {
       System.out.println("Exception: " + g);
     }
  }
+ 
  public String request(String requestQuery){
      /*Function used to only send requests across server i.e. update login list or update friend requests*/
      String host = "localhost";
@@ -112,7 +113,6 @@ public class SocketClient {
           while ( (c = isr.read()) != 14){
               input.append( (char) c);
           }    
-          System.out.println("INCOMING SERVER\n"+input);
          //Close the connection
          connection.close();
          return(input.toString());

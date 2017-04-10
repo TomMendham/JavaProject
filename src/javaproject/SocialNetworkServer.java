@@ -8,6 +8,8 @@ import java.net.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -66,10 +68,13 @@ public void run() {
           {
               SocialNetworkServer.login(parts[0]);
           }
+          else if(parts[i].equals("logoutUser"))
+          {
+              SocialNetworkServer.logout(parts[0]);
+          }
           else if(parts[i].equals("updateLoginList"))
           {
               String usernames = SocialNetworkServer.updateLoginList();
-              System.out.println("SENDING DATA\n"+usernames);
               osw.write(usernames + (char)14);
           }
       }
@@ -128,6 +133,41 @@ public static void login(String username)
   catch (IOException e) {}
 }
 
+public static void logout(String username)
+{
+    try {
+    //Open active users file and temp file
+    File file = new File("activeusers.txt");
+    File temp = file.createTempFile("file",".txt", file.getParentFile());
+    
+    //Set char type and username to delete
+    String charset = "US-ASCII";
+    String delete = username;
+    
+    //Declare buffered reader and print writer
+    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
+    PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), charset));
+    
+    //Iterate over file deleting relevant line
+    for (String line; (line = br.readLine()) != null;) 
+    {
+    line = line.replace(delete, "");
+    pw.println(line);
+    }
+    
+    //Close file writer and print writer
+    br.close();
+    pw.close();
+    
+    //Delete active user file
+    file.delete();
+    //Rename temp to active user
+    temp.renameTo(file);
+    }
+    catch (FileNotFoundException e) {}   
+    catch (UnsupportedEncodingException f) {} 
+    catch (IOException g) {}
+}
 public static String updateLoginList() throws IOException{
   String content = new String(Files.readAllBytes(Paths.get("activeusers.txt")));
   return content;

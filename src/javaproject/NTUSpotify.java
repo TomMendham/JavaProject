@@ -6,6 +6,7 @@
 package javaproject;
 import java.awt.*;
 import javax.swing.*;
+import java.util.*;
 
 /**
  *
@@ -107,6 +108,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         backjButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         mainPanel.setLayout(new java.awt.CardLayout());
 
@@ -660,15 +662,31 @@ public class NTUSpotify extends javax.swing.JFrame {
         String password = PasswordField.getText();
         String isCorrect = socketClient.checkCredentials(username,password);
    
-        if (isCorrect.equals("correct")){
-        socketClient.login(username);
-        String usernames = socketClient.request("updateLoginList");
-        System.out.println("Client\n" + usernames);
-        String[] usernameList = usernames.split("-");
+        if (isCorrect.equals("correct"))
+        {
+        socketClient.connect(username, "loginUser");
         
-        for (int i = 0; i < usernameList.length; i++){
-            OnlineListModel.addElement(usernameList[i]);
+        //Timer to run update functions once user has logged in i.e. updating online list, friend requests
+        java.util.Timer t = new java.util.Timer();
+        t.schedule(new TimerTask() 
+        {
+             @Override
+             public void run() 
+             {
+                String usernames = socketClient.request("updateLoginList");
+                String[] usernameList = usernames.split("-");
+                OnlineListModel.removeAllElements();
+
+                for (int i = 0; i < usernameList.length; i++)
+                {
+                    if(!usernameList[i].equals("\r\n"))
+                    {
+                    OnlineListModel.addElement(usernameList[i]);
+                    }
+                }
             }
+        }, 0, 5000);
+        
         
         ConnectionLabel.setText("");
         mainPanel.removeAll();
@@ -704,7 +722,9 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        OnlineListModel.removeAllElements();
+        SocketClient socketClient = new SocketClient();
+        String username = UsernameField.getText();
+        socketClient.connect(username,"logoutUser");
         mainPanel.removeAll();
         mainPanel.add(logIn);
         mainPanel.repaint();
