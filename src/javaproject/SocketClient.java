@@ -57,7 +57,7 @@ public class SocketClient {
     }   
     return (isCorrect);
  }
- public String login(String username){
+ public void login(String username){
      String host = "localhost";
      int port = 19999;
      
@@ -74,6 +74,34 @@ public class SocketClient {
          String message = username + "-" + "loginUser" + (char) 13;
          //Writing the message and flushing the server
          osw.write(message);
+         osw.flush();         
+     }
+     
+    catch (IOException f) {
+      System.out.println("IOException: " + f);
+    }
+    catch (Exception g) {
+      System.out.println("Exception: " + g);
+    }
+ }
+ public String request(String requestQuery){
+     /*Function used to only send requests across server i.e. update login list or update friend requests*/
+     String host = "localhost";
+     int port = 19999;
+     
+     try {
+         //Find the INET 
+         InetAddress address = InetAddress.getByName(host);
+         Socket connection = new Socket(address, port);
+         
+         //Write the output to a buffered output and then to the writer
+         BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());
+         OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
+         
+         //Message to send over server
+         String message = requestQuery + (char) 13;
+         //Writing the message and flushing the server
+         osw.write(message);
          osw.flush();
          
          BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
@@ -81,11 +109,10 @@ public class SocketClient {
          StringBuffer input = new StringBuffer();
          
           int c;
-          while ( (c = isr.read()) != 13){
+          while ( (c = isr.read()) != 14){
               input.append( (char) c);
           }    
-          
-                  
+          System.out.println("INCOMING SERVER\n"+input);
          //Close the connection
          connection.close();
          return(input.toString());
@@ -97,10 +124,10 @@ public class SocketClient {
     catch (Exception g) {
       System.out.println("Exception: " + g);
     }
-     return ("");
+     
+    return ("");
  }
- 
-  public String registering(String username, String password, String dateOfBirth, String[]genres){
+ public String registering(String username, String password, String dateOfBirth, String[]genres){
      String isCorrect;
      String host = "localhost";
      int port = 19999;

@@ -6,8 +6,8 @@
 package javaproject;
 import java.net.*;
 import java.io.*;
-import java.util.Scanner;
-
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  *
@@ -64,8 +64,13 @@ public void run() {
           }
           else if(parts[i].equals("loginUser"))
           {
-              String usernames = SocialNetworkServer.login(parts[0]); 
-              osw.write(usernames + (char)13);
+              SocialNetworkServer.login(parts[0]);
+          }
+          else if(parts[i].equals("updateLoginList"))
+          {
+              String usernames = SocialNetworkServer.updateLoginList();
+              System.out.println("SENDING DATA\n"+usernames);
+              osw.write(usernames + (char)14);
           }
       }
       osw.flush();
@@ -91,23 +96,15 @@ public static String checkCredentials(String fileName, String username, String p
         //If username not in file return not able to login
         //if username and password are in file allow user to login
 
-        File file = new File(fileName);
-        Scanner scanner = new Scanner(file);
-        int lineNumber = 0;
-
-        while (scanner.hasNextLine()) 
-        {
-            String line = scanner.nextLine();
-            lineNumber++;
-            
+        BufferedReader br = new BufferedReader(new FileReader(fileName));
+        String line = null;
+        while ((line = br.readLine())!= null)
+        {             
             String splitLine[] = line.split("-");
             //Scan the file for these strings
             if (splitLine[0].equals(username)&& splitLine[1].equals(password))
             {
                return ("correct");                 
-            }
-            else {
-                return("incorrect");
             }
         }                
     } 
@@ -116,43 +113,28 @@ public static String checkCredentials(String fileName, String username, String p
         System.out.println("File not found");
         return("server");
     }
-    return("server");
+    catch (IOException g) {}
+    return("incorrect");
     }
 
-public static String login(String username)
+public static void login(String username)
 {
-    String usernames ="";
   try(FileWriter fw = new FileWriter("activeusers.txt", true);
     BufferedWriter bw = new BufferedWriter(fw);
-    PrintWriter out = new PrintWriter(bw))
+    PrintWriter output = new PrintWriter(bw))
 {
-    out.println(username + "-");
-        
-    BufferedReader br = new BufferedReader(new FileReader("activeusers.txt"));
-    try {
-        StringBuilder sb = new StringBuilder();
-        usernames = br.readLine();
-
-        while (usernames != null) {
-            sb.append(usernames);
-            sb.append("\n");
-            usernames = br.readLine();
-        }
-        return sb.toString();
-    }
-    finally {
-        br.close();
-    }
-    
-
+    output.println(username + "-");
 } 
-  catch (IOException e) {
-    
+  catch (IOException e) {}
 }
-  return (usernames);
+
+public static String updateLoginList() throws IOException{
+  String content = new String(Files.readAllBytes(Paths.get("activeusers.txt")));
+  return content;
 }
 //Last bracket for class
 }
+
 
 
 

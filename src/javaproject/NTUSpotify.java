@@ -490,38 +490,33 @@ public class NTUSpotify extends javax.swing.JFrame {
             .addGroup(friendsChatjPanelLayout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
+                    .addGroup(friendsChatjPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(requestFriendshipjButton)
-                            .addComponent(chatjButton))
-                        .addGap(29, 29, 29))
-                    .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                        .addComponent(connectedPeoplejLabel)
-                        .addGap(215, 215, 215)))
+                            .addComponent(chatjButton)))
+                    .addComponent(connectedPeoplejLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(requestsjLabel)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(acceptjButton)
                     .addComponent(refusejButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11))
         );
-
-        friendsChatjPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jScrollPane6, jScrollPane7});
-
         friendsChatjPanelLayout.setVerticalGroup(
             friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(friendsChatjPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(connectedPeoplejLabel)
                     .addComponent(requestsjLabel))
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(requestFriendshipjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chatjButton)
@@ -529,19 +524,20 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addGroup(friendsChatjPanelLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
+                            .addGroup(friendsChatjPanelLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
                                 .addComponent(acceptjButton)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(refusejButton)
-                                .addGap(66, 66, 66))
-                            .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
+                                .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addContainerGap())))))
         );
 
         friendsChatjPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {connectedPeoplejLabel, requestsjLabel});
-
-        friendsChatjPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jScrollPane6, jScrollPane7});
 
         home.addTab("Friends & Chat", friendsChatjPanel);
 
@@ -665,7 +661,9 @@ public class NTUSpotify extends javax.swing.JFrame {
         String isCorrect = socketClient.checkCredentials(username,password);
    
         if (isCorrect.equals("correct")){
-        String usernames = socketClient.login(username);
+        socketClient.login(username);
+        String usernames = socketClient.request("updateLoginList");
+        System.out.println("Client\n" + usernames);
         String[] usernameList = usernames.split("-");
         
         for (int i = 0; i < usernameList.length; i++){
