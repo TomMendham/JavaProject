@@ -14,7 +14,7 @@ import java.io.*;
 public class SocketClient {
 
     
- public String checkCredentials(String username, String password){
+ public String checkCredentials(String username, String password, String identifier){
      String isCorrect;
      String host = "localhost";
      int port = 19999;
@@ -28,7 +28,7 @@ public class SocketClient {
          OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
          
          //Message to send over server
-         String message = username + "-" + password + "-" + "checkCredentials" + (char) 13;
+         String message = username + "-" + password + "-" + identifier + "-" + "checkCredentials" + (char) 13;
          //Writing the message and flushing the server
          osw.write(message);
          osw.flush();
@@ -127,7 +127,7 @@ public class SocketClient {
      
     return ("");
  }
- public String registering(String username, String password, String dateOfBirth, String[]genres){
+ public void registering(String username, String password, String dateOfBirth, String genresString){
      String isCorrect;
      String host = "localhost";
      int port = 19999;
@@ -140,33 +140,15 @@ public class SocketClient {
          BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());
          OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
          
-         String genresString = "";
-         //Adding the genres into one string
-         for (int i = 0; i < genres.length; i++)
-         {
-             genresString += genres[i];
-             genresString += "-";
-         }
-         
          //Message to send over server
          String message = username + "-" + password + "-" + dateOfBirth + "-" + genresString + "-" + "registering" + (char) 13;
          //Writing the message and flushing the server
          osw.write(message);
          osw.flush();
-         
-         BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
-         InputStreamReader isr = new InputStreamReader(bis, "US-ASCII");
-         StringBuffer input = new StringBuffer();
-         
-          int c;
-          while ( (c = isr.read()) != 13){
-              input.append( (char) c);
-          }
-                       
+                
          //Close the connection
          connection.close();
-         isCorrect = input.toString();
-     }
+         }
      
     catch (IOException f) {
       System.out.println("IOException: " + f);
@@ -176,7 +158,6 @@ public class SocketClient {
       System.out.println("Exception: " + g);
       isCorrect = "server";
     }   
-    return (isCorrect);
- }
+}
 }
 

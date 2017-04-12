@@ -67,6 +67,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         DeleteButton = new javax.swing.JButton();
         DOBTextField = new javax.swing.JTextField();
         RegisterPasswordField = new javax.swing.JPasswordField();
+        StatusLabel = new javax.swing.JLabel();
         home = new javax.swing.JTabbedPane();
         homejPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -275,7 +276,10 @@ public class NTUSpotify extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(RegisterButton)
                         .addGap(18, 18, 18)
-                        .addComponent(CancelButton)))
+                        .addComponent(CancelButton))
+                    .addGroup(registerLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(StatusLabel)))
                 .addGap(18, 18, 18)
                 .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(registerLayout.createSequentialGroup()
@@ -294,18 +298,21 @@ public class NTUSpotify extends javax.swing.JFrame {
             .addGroup(registerLayout.createSequentialGroup()
                 .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(registerLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(UsernameLabel)
-                            .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(PasswordLabel)
-                            .addComponent(RegisterPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(DOBLabel)
-                            .addComponent(DOBTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(registerLayout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(UsernameLabel)
+                                    .addComponent(UsernameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(PasswordLabel)
+                                    .addComponent(RegisterPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(DOBLabel)
+                                    .addComponent(DOBTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(StatusLabel))
                         .addGap(56, 56, 56)
                         .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(RegisterButton)
@@ -660,7 +667,8 @@ public class NTUSpotify extends javax.swing.JFrame {
         SocketClient socketClient = new SocketClient();
         String username = UsernameField.getText();
         String password = PasswordField.getText();
-        String isCorrect = socketClient.checkCredentials(username,password);
+        String identifier = "L";
+        String isCorrect = socketClient.checkCredentials(username,password,identifier);
    
         if (isCorrect.equals("correct"))
         {
@@ -760,9 +768,40 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_backjButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
+       SocketClient socketClient = new SocketClient();
        String username = UsernameTextField.getText();
        String password = RegisterPasswordField.getText();
-    }//GEN-LAST:event_RegisterButtonActionPerformed
+       String dateOfBirth = DOBTextField.getText();
+       String identifier = "R";
+       //Checking if a user with the same username already exists
+       String exists = socketClient.checkCredentials(username,password,identifier);
+       
+   
+       if (exists.equals("incorrect"))
+       {
+            String genresString = "";
+       
+           for (int i=0;i < GenreList.getModel().getSize();i++)
+           {
+                genresString += GenreList.getModel().getElementAt(i);
+                genresString += "_";
+           }
+           
+           socketClient.registering(username,password,dateOfBirth,genresString);
+           
+            ConnectionLabel.setText("");
+            mainPanel.removeAll();
+            mainPanel.add(logIn);
+            mainPanel.repaint();
+            mainPanel.revalidate(); 
+        }
+        else if (exists.equals("server")) {
+            StatusLabel.setText("Server not running");
+        }
+        else {
+            StatusLabel.setText("Username already exists");
+        }
+    }                                              
 
     /**
      * @param args the command line arguments
@@ -798,7 +837,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                 new NTUSpotify().setVisible(true);
             }
         });
-    }
+    }//GEN-LAST:event_RegisterButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
@@ -818,6 +857,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JButton RegisterButton;
     private javax.swing.JButton RegisterButton1;
     private javax.swing.JPasswordField RegisterPasswordField;
+    private javax.swing.JLabel StatusLabel;
     private javax.swing.JTextField UsernameField;
     private javax.swing.JLabel UsernameLabel;
     private javax.swing.JLabel UsernameLabel1;

@@ -61,7 +61,7 @@ public void run() {
           if (parts[i].equals("checkCredentials"))
           {
           //Check credentials and write the output
-          String returnCode = SocialNetworkServer.checkCredentials("input.txt", parts[0], parts[1]);
+          String returnCode = SocialNetworkServer.checkCredentials("input.txt", parts[0], parts[1], parts[3]);
           osw.write(returnCode + (char)13);
           }
           else if(parts[i].equals("loginUser"))
@@ -77,6 +77,10 @@ public void run() {
               String usernames = SocialNetworkServer.updateLoginList();
               osw.write(usernames + (char)14);
           }
+          else if(parts[i].equals("registering"))
+          {
+              SocialNetworkServer.registering("input.txt",parts[0], parts[1], parts[2], parts[3]); 
+          }          
       }
       osw.flush();
     }
@@ -92,7 +96,7 @@ public void run() {
     
     
 }
-public static String checkCredentials(String fileName, String username, String password)
+public static String checkCredentials(String fileName, String username, String password, String identifier)
 {
    /*Checks the user credentials against the user file*/
     try 
@@ -106,11 +110,30 @@ public static String checkCredentials(String fileName, String username, String p
         while ((line = br.readLine())!= null)
         {             
             String splitLine[] = line.split("-");
-            //Scan the file for these strings
-            if (splitLine[0].equals(username)&& splitLine[1].equals(password))
+            if (identifier.equals("R"))
             {
-               return ("correct");                 
+                //Scan the file for this string
+                if (splitLine[0].equals(username))
+                {
+                    return ("correct");                 
+                }
+                else 
+                {
+                    return("incorrect");
+                }
             }
+            else if (identifier.equals("L"))
+            {
+                //Scan the file for these strings
+                if (splitLine[0].equals(username)&& splitLine[1].equals(password))
+                {
+                    return ("correct");                 
+                }
+                else 
+                {
+                    return("incorrect");
+                }
+            }            
         }                
     } 
     catch (FileNotFoundException e)
@@ -176,6 +199,20 @@ public static String updateLoginList() throws IOException{
   String content = new String(Files.readAllBytes(Paths.get("activeusers.txt")));
   return content;
 }
+
+public static void registering(String fileName, String username, String password, String dateOfBirth, String genresString)
+{ 
+   try(FileWriter fw = new FileWriter(fileName, true);
+       BufferedWriter bw = new BufferedWriter(fw);
+       PrintWriter out = new PrintWriter(bw);)
+   {
+       out.println("\n" + username+ "-" + password + "-" + dateOfBirth + "-" + genresString);
+   }
+   catch(IOException e){
+       
+   }
+}
+
 //Last bracket for class
 }
 

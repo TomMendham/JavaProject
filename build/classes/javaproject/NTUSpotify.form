@@ -197,6 +197,10 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="CancelButton" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="StatusLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -222,20 +226,25 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="UsernameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="UsernameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="PasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="RegisterPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="DOBLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="DOBTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="UsernameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="UsernameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="PasswordLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="RegisterPasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="DOBLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="DOBTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="StatusLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -372,6 +381,8 @@
               </Events>
             </Component>
             <Component class="javax.swing.JPasswordField" name="RegisterPasswordField">
+            </Component>
+            <Component class="javax.swing.JLabel" name="StatusLabel">
             </Component>
           </SubComponents>
         </Container>
