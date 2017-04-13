@@ -715,6 +715,9 @@ public class NTUSpotify extends javax.swing.JFrame {
         mainPanel.add(register);
         mainPanel.repaint();
         mainPanel.revalidate();
+        ConnectionLabel.setText("");
+        UsernameField.setText("");
+        PasswordField.setText("");
     }//GEN-LAST:event_RegisterButton1ActionPerformed
 
     private void ExitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitButtonActionPerformed
