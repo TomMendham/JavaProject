@@ -408,7 +408,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="44" max="32767" attributes="0"/>
+                          <EmptySpace pref="17" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="friendLabel" min="-2" max="-2" attributes="0"/>
@@ -567,7 +567,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="postLabel" max="32767" attributes="0"/>
+                                  <Component id="postLabel" pref="65" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="postTextField" min="-2" pref="431" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -805,27 +805,27 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="profilePicjLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+                                  <Component id="profilePicLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="userNamejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="dateOfBirthjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="userNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateOfBirthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="uploadPicjButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="uploadPicButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="118" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
+                          <EmptySpace pref="137" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="pGenreComboBox1" min="-2" pref="126" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="uploadSongsjButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="uploadSongsButton" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane9" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
+                              <Component id="favouriteGenresLabel" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane9" alignment="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -836,47 +836,47 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="profilePicjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="userNamejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="uploadSongsjButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="profilePicLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="userNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="uploadSongsButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="pGenreComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="dateOfBirthjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="dateOfBirthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="favouriteGenresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane9" min="-2" pref="100" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="uploadPicjButton" min="-2" max="-2" attributes="0"/>
+                          <Component id="uploadPicButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="profilePicjLabel">
+                <Component class="javax.swing.JLabel" name="profilePicLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="ProfilePic"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="userNamejLabel">
+                <Component class="javax.swing.JLabel" name="userNameLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="UserName"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="uploadSongsjButton">
+                <Component class="javax.swing.JButton" name="uploadSongsButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Upload Songs"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="dateOfBirthjLabel">
+                <Component class="javax.swing.JLabel" name="dateOfBirthLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="DateOfBirth"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JButton" name="uploadPicjButton">
+                <Component class="javax.swing.JButton" name="uploadPicButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Upload Profile Pic"/>
                   </Properties>
@@ -907,7 +907,7 @@
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel1">
+                <Component class="javax.swing.JLabel" name="favouriteGenresLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Favourite Genres"/>
                   </Properties>
