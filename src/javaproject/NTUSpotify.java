@@ -98,6 +98,16 @@ public class NTUSpotify extends javax.swing.JFrame {
         refusejButton = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         requestsjList = new javax.swing.JList<>();
+        profilejPanel = new javax.swing.JPanel();
+        profilePicjLabel = new javax.swing.JLabel();
+        userNamejLabel = new javax.swing.JLabel();
+        uploadSongsjButton = new javax.swing.JButton();
+        dateOfBirthjLabel = new javax.swing.JLabel();
+        uploadPicjButton = new javax.swing.JButton();
+        pGenreComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         chat = new javax.swing.JPanel();
         chatjLabel = new javax.swing.JLabel();
         namejLabel = new javax.swing.JLabel();
@@ -176,7 +186,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addGroup(logInLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(ConnectionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addContainerGap(248, Short.MAX_VALUE))
         );
         logInLayout.setVerticalGroup(
             logInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,8 +299,8 @@ public class NTUSpotify extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(registerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(AddButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(DeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                            .addComponent(DeleteButton, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
                 .addContainerGap())
         );
         registerLayout.setVerticalGroup(
@@ -367,7 +377,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         homejPanelLayout.setHorizontalGroup(
             homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(homejPanelLayout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homejPanelLayout.createSequentialGroup()
                         .addComponent(friendLabel)
@@ -401,7 +411,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addComponent(sharedSongsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
                     .addComponent(jScrollPane5)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homejPanelLayout.createSequentialGroup()
@@ -448,7 +458,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addComponent(sendButton)
                     .addComponent(postTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(postLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         home.addTab("Posts", postsjPanel);
@@ -525,7 +535,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addComponent(requestsjLabel))
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(23, 41, Short.MAX_VALUE)
                         .addComponent(requestFriendshipjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chatjButton)
@@ -541,14 +551,78 @@ public class NTUSpotify extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
                                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING))
+                                    .addComponent(jScrollPane7)
+                                    .addComponent(jScrollPane6))
                                 .addContainerGap())))))
         );
 
         friendsChatjPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {connectedPeoplejLabel, requestsjLabel});
 
         home.addTab("Friends & Chat", friendsChatjPanel);
+
+        profilePicjLabel.setText("ProfilePic");
+
+        userNamejLabel.setText("UserName");
+
+        uploadSongsjButton.setText("Upload Songs");
+
+        dateOfBirthjLabel.setText("DateOfBirth");
+
+        uploadPicjButton.setText("Upload Profile Pic");
+
+        pGenreComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ambient Music", "Blues", "Classical Music", "Country Music", "Disco", "Drum and Bass", "Dubstep", "Heavy Metal", "Hip Hop Music", "House", "Jazz", "Pop Music", "Reggae", "Rock", "Techno" }));
+
+        jLabel1.setText("Favourite Genres");
+
+        jScrollPane9.setViewportView(jList1);
+
+        javax.swing.GroupLayout profilejPanelLayout = new javax.swing.GroupLayout(profilejPanel);
+        profilejPanel.setLayout(profilejPanelLayout);
+        profilejPanelLayout.setHorizontalGroup(
+            profilejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, profilejPanelLayout.createSequentialGroup()
+                .addGroup(profilejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(profilejPanelLayout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(profilePicjLabel)
+                        .addGap(126, 126, 126)
+                        .addGroup(profilejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(userNamejLabel)
+                            .addComponent(dateOfBirthjLabel)))
+                    .addGroup(profilejPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(uploadPicjButton)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
+                .addGroup(profilejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(profilejPanelLayout.createSequentialGroup()
+                        .addComponent(pGenreComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(uploadSongsjButton))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        profilejPanelLayout.setVerticalGroup(
+            profilejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(profilejPanelLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(profilejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(profilePicjLabel)
+                    .addComponent(userNamejLabel)
+                    .addComponent(uploadSongsjButton)
+                    .addComponent(pGenreComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(profilejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dateOfBirthjLabel)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(uploadPicjButton)
+                .addContainerGap())
+        );
+
+        home.addTab("Profile", profilejPanel);
 
         mainPanel.add(home, "card4");
 
@@ -740,6 +814,8 @@ public class NTUSpotify extends javax.swing.JFrame {
         mainPanel.add(logIn);
         mainPanel.repaint();
         mainPanel.revalidate();
+        UsernameField.setText("");
+        PasswordField.setText("");
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
@@ -872,6 +948,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JLabel chatjLabel;
     private javax.swing.JLabel connectedPeoplejLabel;
     private javax.swing.JList<String> connectedPeoplejList;
+    private javax.swing.JLabel dateOfBirthjLabel;
     private javax.swing.JLabel friendLabel;
     private javax.swing.JList<String> friendList;
     private javax.swing.JPanel friendsChatjPanel;
@@ -880,6 +957,8 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JLabel informationLabel;
     private javax.swing.JTextArea informationList;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -888,6 +967,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JPanel logIn;
     private javax.swing.JButton logoutButton;
     private javax.swing.JPanel mainPanel;
@@ -895,10 +975,13 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JTextField messagejTextField;
     private javax.swing.JTextArea messagesjTextArea;
     private javax.swing.JLabel namejLabel;
+    private javax.swing.JComboBox<String> pGenreComboBox1;
     private javax.swing.JLabel postLabel;
     private javax.swing.JTextArea postTextArea;
     private javax.swing.JTextField postTextField;
     private javax.swing.JPanel postsjPanel;
+    private javax.swing.JLabel profilePicjLabel;
+    private javax.swing.JPanel profilejPanel;
     private javax.swing.JButton refusejButton;
     private javax.swing.JPanel register;
     private javax.swing.JButton requestFriendshipjButton;
@@ -908,6 +991,9 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JButton sendjButton;
     private javax.swing.JList<String> sharedSongs;
     private javax.swing.JLabel sharedSongsLabel;
+    private javax.swing.JButton uploadPicjButton;
+    private javax.swing.JButton uploadSongsjButton;
+    private javax.swing.JLabel userNamejLabel;
     // End of variables declaration//GEN-END:variables
  
     private void setIcon() {

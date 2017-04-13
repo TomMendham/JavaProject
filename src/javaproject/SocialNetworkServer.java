@@ -61,7 +61,7 @@ public void run() {
           if (parts[i].equals("checkCredentials"))
           {
           //Check credentials and write the output
-          String returnCode = SocialNetworkServer.checkCredentials("input.txt", parts[0], parts[1], parts[3]);
+          String returnCode = SocialNetworkServer.checkCredentials("input.txt", parts[0], parts[1], parts[2]);
           osw.write(returnCode + (char)13);
           }
           else if(parts[i].equals("loginUser"))
@@ -117,10 +117,6 @@ public static String checkCredentials(String fileName, String username, String p
                 {
                     return ("correct");                 
                 }
-                else 
-                {
-                    return("incorrect");
-                }
             }
             else if (identifier.equals("L"))
             {
@@ -128,10 +124,6 @@ public static String checkCredentials(String fileName, String username, String p
                 if (splitLine[0].equals(username)&& splitLine[1].equals(password))
                 {
                     return ("correct");                 
-                }
-                else 
-                {
-                    return("incorrect");
                 }
             }            
         }                

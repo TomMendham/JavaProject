@@ -86,7 +86,7 @@
                               <Component id="ConnectionLabel" min="-2" pref="257" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="233" max="32767" attributes="0"/>
+                      <EmptySpace pref="248" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -212,10 +212,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="AddButton" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="DeleteButton" alignment="0" pref="123" max="32767" attributes="0"/>
+                                  <Component id="DeleteButton" alignment="0" pref="138" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jScrollPane2" pref="255" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="270" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -408,7 +408,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="29" max="32767" attributes="0"/>
+                          <EmptySpace pref="44" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="friendLabel" min="-2" max="-2" attributes="0"/>
@@ -449,7 +449,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane3" pref="152" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="170" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" max="32767" attributes="0"/>
                               <Component id="jScrollPane5" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
@@ -590,7 +590,7 @@
                               <Component id="postTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="postLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="35" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -675,7 +675,7 @@
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="23" max="32767" attributes="0"/>
+                                  <EmptySpace min="23" pref="41" max="32767" attributes="0"/>
                                   <Component id="requestFriendshipjButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chatjButton" min="-2" max="-2" attributes="0"/>
@@ -693,8 +693,8 @@
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="jScrollPane6" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
-                                              <Component id="jScrollPane7" alignment="1" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane7" max="32767" attributes="0"/>
+                                              <Component id="jScrollPane6" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                       </Group>
@@ -780,6 +780,150 @@
                           <Connection code="RequestsListModel" type="code"/>
                         </Property>
                         <Property name="toolTipText" type="java.lang.String" value=""/>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                      </AuxValues>
+                    </Component>
+                  </SubComponents>
+                </Container>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="profilejPanel">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="Profile">
+                    <Property name="tabTitle" type="java.lang.String" value="Profile"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                  <Component id="profilePicjLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="126" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="userNamejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="dateOfBirthjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="uploadPicjButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace pref="118" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="pGenreComboBox1" min="-2" pref="126" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="uploadSongsjButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                              <Component id="jScrollPane9" alignment="0" min="-2" pref="179" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="profilePicjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="userNamejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="uploadSongsjButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="pGenreComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="dateOfBirthjLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jScrollPane9" min="-2" pref="100" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="uploadPicjButton" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="profilePicjLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="ProfilePic"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="userNamejLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="UserName"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="uploadSongsjButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Upload Songs"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="dateOfBirthjLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="DateOfBirth"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="uploadPicjButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Upload Profile Pic"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="pGenreComboBox1">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="15">
+                        <StringItem index="0" value="Ambient Music"/>
+                        <StringItem index="1" value="Blues"/>
+                        <StringItem index="2" value="Classical Music"/>
+                        <StringItem index="3" value="Country Music"/>
+                        <StringItem index="4" value="Disco"/>
+                        <StringItem index="5" value="Drum and Bass"/>
+                        <StringItem index="6" value="Dubstep"/>
+                        <StringItem index="7" value="Heavy Metal"/>
+                        <StringItem index="8" value="Hip Hop Music"/>
+                        <StringItem index="9" value="House"/>
+                        <StringItem index="10" value="Jazz"/>
+                        <StringItem index="11" value="Pop Music"/>
+                        <StringItem index="12" value="Reggae"/>
+                        <StringItem index="13" value="Rock"/>
+                        <StringItem index="14" value="Techno"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                  </AuxValues>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Favourite Genres"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="jScrollPane9">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JList" name="jList1">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
