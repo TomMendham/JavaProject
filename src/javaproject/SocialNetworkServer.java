@@ -8,8 +8,7 @@ import java.net.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -17,7 +16,6 @@ import java.util.logging.Logger;
  */
 public class SocialNetworkServer implements Runnable {
     private Socket connection;
-    private String TimeStamp;
         
      public static void main(String[] args) {
         int port = 19999;
@@ -104,6 +102,11 @@ public static String checkCredentials(String fileName, String username, String p
         //Compare username to file
         //If username not in file return not able to login
         //if username and password are in file allow user to login
+        
+        
+        //Test for empty values.
+        if (username.equals("")&&password.equals(""))
+            return("incorrect");
 
         BufferedReader br = new BufferedReader(new FileReader(fileName));
         String line = null;
@@ -137,8 +140,7 @@ public static String checkCredentials(String fileName, String username, String p
     return("incorrect");
     }
 
-public static void login(String username)
-{
+public static void login(String username){
   try(FileWriter fw = new FileWriter("activeusers.txt", true);
     BufferedWriter bw = new BufferedWriter(fw);
     PrintWriter output = new PrintWriter(bw))
@@ -147,9 +149,7 @@ public static void login(String username)
 } 
   catch (IOException e) {}
 }
-
-public static void logout(String username)
-{
+public static void logout(String username){
     try {
     //Open active users file and temp file
     File file = new File("activeusers.txt");
@@ -191,9 +191,7 @@ public static String updateLoginList() throws IOException{
   String content = new String(Files.readAllBytes(Paths.get("activeusers.txt")));
   return content;
 }
-
-public static void registering(String fileName, String username, String password, String dateOfBirth, String genresString)
-{ 
+public static void registering(String fileName, String username, String password, String dateOfBirth, String genresString){ 
    try(FileWriter fw = new FileWriter(fileName, true);
        BufferedWriter bw = new BufferedWriter(fw);
        PrintWriter out = new PrintWriter(bw);)

@@ -748,7 +748,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         if (isCorrect.equals("correct"))
         {
         socketClient.connect(username, "loginUser");
-        
+        this.setTitle("NTU Music Network - "+ username);
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
         java.util.Timer t = new java.util.Timer();
         t.schedule(new TimerTask() 
@@ -815,6 +815,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         SocketClient socketClient = new SocketClient();
         String username = UsernameField.getText();
         socketClient.connect(username,"logoutUser");
+        this.setTitle("NTU Music Network");
         mainPanel.removeAll();
         mainPanel.add(logIn);
         mainPanel.repaint();
