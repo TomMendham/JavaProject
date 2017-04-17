@@ -31,6 +31,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         initComponents();
         setIcon();
         this.setLocationRelativeTo(null);
+        this.setTitle("NTU Music Network");
     }
 
     /**
