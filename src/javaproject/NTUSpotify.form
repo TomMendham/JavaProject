@@ -97,7 +97,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="UsernameLabel1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="UsernameField" min="-2" pref="107" max="-2" attributes="0"/>
+                                      <Component id="usernameField" min="-2" pref="107" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -118,9 +118,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="UsernameLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="UsernameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="usernameField" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="29" max="32767" attributes="0"/>
+                      <EmptySpace pref="59" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="PasswordLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="PasswordField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -147,9 +147,9 @@
                 <Property name="text" type="java.lang.String" value="Password:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="UsernameField">
+            <Component class="javax.swing.JTextField" name="usernameField">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UsernameFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameFieldActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="LoginButton">
@@ -206,7 +206,7 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="UsernameTextField" alignment="0" pref="122" max="32767" attributes="0"/>
+                                  <Component id="usernameTextField" alignment="0" pref="122" max="32767" attributes="0"/>
                                   <Component id="DOBTextField" alignment="0" max="32767" attributes="0"/>
                                   <Component id="RegisterPasswordField" alignment="0" max="32767" attributes="0"/>
                               </Group>
@@ -251,7 +251,7 @@
                                       <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="UsernameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="UsernameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="usernameTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -287,7 +287,7 @@
                               <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="23" max="32767" attributes="0"/>
+                      <EmptySpace pref="53" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -372,9 +372,9 @@
                 <Property name="text" type="java.lang.String" value="Username:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="UsernameTextField">
+            <Component class="javax.swing.JTextField" name="usernameTextField">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UsernameTextFieldActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usernameTextFieldActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="PasswordLabel">
@@ -469,7 +469,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane3" pref="170" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="182" max="32767" attributes="0"/>
                               <Component id="jScrollPane1" max="32767" attributes="0"/>
                               <Component id="jScrollPane5" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
@@ -586,14 +586,14 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="postLabel" pref="65" max="32767" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="postTextField" min="-2" pref="431" max="-2" attributes="0"/>
+                              <Component id="jScrollPane4" pref="596" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="postLabel" pref="26" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="sendButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="postTextField" min="-2" pref="503" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="sendButton" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jScrollPane4" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -603,14 +603,13 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane4" min="-2" pref="137" max="-2" attributes="0"/>
+                          <Component id="jScrollPane4" pref="184" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="sendButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="postTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="sendButton" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="postLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="35" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -620,6 +619,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Send"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JTextField" name="postTextField">
                 </Component>
@@ -695,7 +697,7 @@
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="23" pref="41" max="32767" attributes="0"/>
+                                  <EmptySpace min="23" pref="53" max="32767" attributes="0"/>
                                   <Component id="requestFriendshipjButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="chatjButton" min="-2" max="-2" attributes="0"/>
@@ -822,22 +824,19 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="profilePicLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="profilePicLabel" min="-2" pref="128" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="userNameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="dateOfBirthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="uploadPicButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="uploadPicButton" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="137" max="32767" attributes="0"/>
+                          <EmptySpace pref="164" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="pGenreComboBox1" min="-2" pref="126" max="-2" attributes="0"/>
@@ -854,21 +853,28 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="profilePicLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="userNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="uploadSongsButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="pGenreComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="userNameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="uploadSongsButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="pGenreComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="dateOfBirthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="favouriteGenresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPane9" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="profilePicLabel" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="dateOfBirthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="favouriteGenresLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane9" min="-2" pref="100" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="32767" attributes="0"/>
                           <Component id="uploadPicButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -903,6 +909,9 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Upload Profile Pic"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uploadPicButtonActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="pGenreComboBox1">
                   <Properties>
@@ -1001,7 +1010,7 @@
                           <Component id="namejLabel" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane8" pref="152" max="32767" attributes="0"/>
+                      <Component id="jScrollPane8" pref="182" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="messagejTextField" alignment="3" min="-2" max="-2" attributes="0"/>

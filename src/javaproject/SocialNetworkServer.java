@@ -8,6 +8,10 @@ import java.net.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -72,13 +76,22 @@ public void run() {
           }
           else if(parts[i].equals("updateLoginList"))
           {
-              String usernames = SocialNetworkServer.updateLoginList();
+              String usernames = SocialNetworkServer.updateList("activeusers.txt");
               osw.write(usernames + (char)14);
+          }
+          else if(parts[i].equals("updatePostList"))
+          {
+              String post = SocialNetworkServer.updateList("userPosts.txt");
+              osw.write(post + (char)14);
           }
           else if(parts[i].equals("registering"))
           {
               SocialNetworkServer.registering("input.txt",parts[0], parts[1], parts[2], parts[3]); 
-          }          
+          }
+          else if(parts[i].equals("makePost"))
+          {
+              SocialNetworkServer.post(parts[0], parts[1]);
+          }
       }
       osw.flush();
     }
@@ -94,8 +107,7 @@ public void run() {
     
     
 }
-public static String checkCredentials(String fileName, String username, String password, String identifier)
-{
+public static String checkCredentials(String fileName, String username, String password, String identifier){
    /*Checks the user credentials against the user file*/
     try 
     {
@@ -139,7 +151,17 @@ public static String checkCredentials(String fileName, String username, String p
     catch (IOException g) {}
     return("incorrect");
     }
-
+public static void registering(String fileName, String username, String password, String dateOfBirth, String genresString){ 
+   try(FileWriter fw = new FileWriter(fileName, true);
+       BufferedWriter bw = new BufferedWriter(fw);
+       PrintWriter out = new PrintWriter(bw);)
+   {
+       out.println("\n" + username+ "-" + password + "-" + dateOfBirth + "-" + genresString);
+   }
+   catch(IOException e){
+       
+   }
+}
 public static void login(String username){
   try(FileWriter fw = new FileWriter("activeusers.txt", true);
     BufferedWriter bw = new BufferedWriter(fw);
@@ -187,20 +209,24 @@ public static void logout(String username){
     catch (UnsupportedEncodingException f) {} 
     catch (IOException g) {}
 }
-public static String updateLoginList() throws IOException{
-  String content = new String(Files.readAllBytes(Paths.get("activeusers.txt")));
+public static String updateList(String fileName) throws IOException{
+  String content = new String(Files.readAllBytes(Paths.get(fileName)));
   return content;
 }
-public static void registering(String fileName, String username, String password, String dateOfBirth, String genresString){ 
-   try(FileWriter fw = new FileWriter(fileName, true);
-       BufferedWriter bw = new BufferedWriter(fw);
-       PrintWriter out = new PrintWriter(bw);)
-   {
-       out.println("\n" + username+ "-" + password + "-" + dateOfBirth + "-" + genresString);
-   }
-   catch(IOException e){
-       
-   }
+public static void post(String username, String post){
+    
+    //Get todays date in the simple date format "dd/MM/YY HH:mm
+    DateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
+    Date todaysDate = Calendar.getInstance().getTime();    
+    String currentDate = sdf.format(todaysDate);
+    
+    try(FileWriter fw = new FileWriter("userPosts.txt", true);
+    BufferedWriter bw = new BufferedWriter(fw);
+    PrintWriter output = new PrintWriter(bw))
+{
+    output.println(currentDate + " - " + username + " - " + post);
+} 
+  catch (IOException e) {}
 }
 
 //Last bracket for class
