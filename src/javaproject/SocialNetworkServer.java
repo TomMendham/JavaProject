@@ -92,6 +92,10 @@ public void run() {
           {
               SocialNetworkServer.post(parts[0], parts[1]);
           }
+          else if(parts[i].equals("friendRequest"))
+          {
+              SocialNetworkServer.friendRequest(parts[0],parts[1]);
+          }
       }
       osw.flush();
     }
@@ -228,7 +232,32 @@ public static void post(String username, String post){
 } 
   catch (IOException e) {}
 }
-
+public static void friendRequest(String username, String friend) throws IOException{
+    //Check for username
+    //if username is already in write next to name
+    //if not in there write new line
+   
+    
+    BufferedReader br = new BufferedReader(new FileReader("friendRequests.txt"));
+        String line = null;
+        while ((line = br.readLine())!= null){
+            String splitLine[] = line.split(":");
+            
+            //Check username in file
+            if (username.equals(splitLine[0])){
+                //Split current friendship requests to check for current request
+                String friendRequests[] = splitLine[1].split("-");
+                
+                for(int i =0; i < friendRequests.length; i++){
+                    if (!friendRequests[i].equals(friend)){
+                        line += "-" + friend;
+                        System.out.println(line);
+                        return;
+                    }
+                }
+            }
+        }
+}
 //Last bracket for class
 }
 

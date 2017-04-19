@@ -185,5 +185,32 @@ public class SocketClient {
           System.out.println("Exception: " + g);
        }
     }
+ public void friendRequest(String username, String friend){
+     String host = "localhost";
+     int port = 19999;
+     
+     try {
+         //Find the INET 
+         InetAddress address = InetAddress.getByName(host);
+         Socket connection = new Socket(address, port);
+         
+         //Write the output to a buffered output and then to the writer
+         BufferedOutputStream bos = new BufferedOutputStream(connection.getOutputStream());
+         OutputStreamWriter osw = new OutputStreamWriter(bos, "US-ASCII");
+         
+         //Message to send over server
+         String message = username + "-" + friend + "-" + "friendRequest" + (char) 13;
+         //Writing the message and flushing the server
+         osw.write(message);
+         osw.flush();
+     
+        }
+        catch (IOException f) {
+         System.out.println("IOException: " + f);
+       }
+        catch (Exception g) {
+          System.out.println("Exception: " + g);
+       }
+ }
 }
 

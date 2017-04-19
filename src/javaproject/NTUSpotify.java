@@ -95,7 +95,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         postLabel = new javax.swing.JLabel();
         friendsChatjPanel = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        connectedPeoplejList = new javax.swing.JList<>();
+        connectedPeopleList = new javax.swing.JList<>();
         connectedPeoplejLabel = new javax.swing.JLabel();
         requestsjLabel = new javax.swing.JLabel();
         requestFriendshipjButton = new javax.swing.JButton();
@@ -486,8 +486,8 @@ public class NTUSpotify extends javax.swing.JFrame {
 
         home.addTab("Posts", postsjPanel);
 
-        connectedPeoplejList.setModel(OnlineListModel);
-        jScrollPane6.setViewportView(connectedPeoplejList);
+        connectedPeopleList.setModel(OnlineListModel);
+        jScrollPane6.setViewportView(connectedPeopleList);
 
         connectedPeoplejLabel.setText("List of connected people");
 
@@ -798,13 +798,13 @@ public class NTUSpotify extends javax.swing.JFrame {
 
                 for (int i = 0; i < usernameList.length; i++)
                 {
-                    if(!usernameList[i].equals("\r\n"))
+                    if(!usernameList[i].equals("\r\n")&&(!usernameList[i].equals(username)))
                     {
                     OnlineListModel.addElement(usernameList[i]);
                     }
                 }
             }
-        }, 0, 2000);
+        }, 0, 10000);
         
         
         ConnectionLabel.setText("");
@@ -860,7 +860,10 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
+        String friend = connectedPeopleList.getSelectedValue();
+        String username = usernameField.getText();
         
+        socketClient.friendRequest(username,friend);
     }//GEN-LAST:event_requestFriendshipjButtonActionPerformed
 
     private void chatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatjButtonActionPerformed
@@ -1006,8 +1009,8 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JPanel chat;
     private javax.swing.JButton chatjButton;
     private javax.swing.JLabel chatjLabel;
+    private javax.swing.JList<String> connectedPeopleList;
     private javax.swing.JLabel connectedPeoplejLabel;
-    private javax.swing.JList<String> connectedPeoplejList;
     private javax.swing.JLabel dateOfBirthLabel;
     private javax.swing.JLabel favouriteGenresLabel;
     private javax.swing.JLabel friendLabel;
