@@ -24,7 +24,6 @@ public class SocialNetworkServer implements Runnable {
      public static void main(String[] args) {
         int port = 19999;
     try{
-      String emil = "";
       ServerSocket socket1 = new ServerSocket(port);
       System.out.println("SocialNetworkServer: RUNNING");
       while (true) {
@@ -43,6 +42,7 @@ SocialNetworkServer(Socket s) {
 public void run() {
     try {
        String Tom;
+       String emil = "";
       //Declarations of input reader and stringbuffer
       BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
       InputStreamReader isr = new InputStreamReader(is);
