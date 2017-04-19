@@ -41,6 +41,7 @@ SocialNetworkServer(Socket s) {
 
 public void run() {
     try {
+       String Tom;
       //Declarations of input reader and stringbuffer
       BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
       InputStreamReader isr = new InputStreamReader(is);
