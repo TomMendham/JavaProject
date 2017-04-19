@@ -12,6 +12,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 
 /**
@@ -41,8 +43,6 @@ SocialNetworkServer(Socket s) {
 
 public void run() {
     try {
-       String Tom;
-       String emil = "";
       //Declarations of input reader and stringbuffer
       BufferedInputStream is = new BufferedInputStream(connection.getInputStream());
       InputStreamReader isr = new InputStreamReader(is);
@@ -103,6 +103,17 @@ public void run() {
               SocialNetworkServer.friendRequest(content[0],content[1]);
               osw.write("COMPLETE" + (char)14);
           }
+          else if (identifier.equals("getDetails"))
+          {
+              String details = SocialNetworkServer.getDetails(content[0]);
+              osw.write(details + (char)14);
+          }
+          else if (identifier.equals("playSong"))
+          {
+              SocialNetworkServer.playSong(content[0]);
+              osw.write("COMPLETE" + (char)14);
+          }         
+              
       osw.flush();
     }
     catch (Exception e) {
@@ -114,8 +125,6 @@ public void run() {
      }
       catch (IOException e){}
     }
-    
-    
 }
 public static String checkCredentials(String fileName, String username, String password, String identifier){
    /*Checks the user credentials against the user file*/
@@ -166,7 +175,7 @@ public static void registering(String fileName, String username, String password
        BufferedWriter bw = new BufferedWriter(fw);
        PrintWriter out = new PrintWriter(bw);)
    {
-       out.println("\n" + username+ "-" + password + "-" + dateOfBirth + "-" + genresString);
+       out.println("\n\r" + username+ "-" + password + "-" + dateOfBirth + "-" + genresString);
    }
    catch(IOException e){
        
@@ -262,6 +271,41 @@ public static void friendRequest(String username, String friend) throws IOExcept
                     }
                 }
             }
+        }
+}
+
+public static String getDetails(String friend){
+    String content = "";
+    
+    try{
+       BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+       String line = null;
+        while ((line = br.readLine())!= null){
+            String splitLine[] = line.split(":");
+            
+            //Check username in file
+            if (friend.equals(splitLine[0])){
+                content = splitLine[1];
+            }
+        }
+    } 
+        catch(IOException e){
+   }
+    
+    
+  return content;
+}
+
+public static void playSong(String songName){
+    
+    songName += ".mp3";
+        String path ="C:\\Users\\user\\Desktop\\java\\JavaProject\\songs";
+        File f = new File(path+"\\"+songName);
+        
+        if(f.exists() && f.isFile()) { 
+            Media hit = new Media(new File(songName).toURI().toString());
+            MediaPlayer mediaPlayer = new MediaPlayer(hit);
+            mediaPlayer.play();
         }
 }
 //Last bracket for class
