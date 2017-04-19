@@ -100,8 +100,8 @@ public void run() {
           }
           else if(identifier.equals("friendRequest"))
           {
-              SocialNetworkServer.friendRequest(content[0],content[1]);
-              osw.write("COMPLETE" + (char)14);
+              String friendRequest = SocialNetworkServer.friendRequest(content[0],content[1]);
+              osw.write(friendRequest + (char)14);
           }
           else if (identifier.equals("getDetails"))
           {
@@ -247,32 +247,6 @@ public static void post(String username, String post){
 } 
   catch (IOException e) {}
 }
-public static void friendRequest(String username, String friend) throws IOException{
-    //Check for username
-    //if username is already in write next to name
-    //if not in there write new line
-   
-    
-    BufferedReader br = new BufferedReader(new FileReader("friendRequests.txt"));
-        String line = null;
-        while ((line = br.readLine())!= null){
-            String splitLine[] = line.split(":");
-            
-            //Check username in file
-            if (username.equals(splitLine[0])){
-                //Split current friendship requests to check for current request
-                String friendRequests[] = splitLine[1].split("-");
-                
-                for(int i =0; i < friendRequests.length; i++){
-                    if (!friendRequests[i].equals(friend)){
-                        line += "-" + friend;
-                        System.out.println(line);
-                        return;
-                    }
-                }
-            }
-        }
-}
 
 public static String getDetails(String friend){
     String content = "";
@@ -308,6 +282,80 @@ public static void playSong(String songName){
             mediaPlayer.play();
         }
 }
+
+public static String friendRequest(String username, String friend){
+        try {
+            //Check for username
+            //if username is already in write next to name
+            //if not in there write new line
+            File file = new File("friendRequests.txt");
+            File temp = file.createTempFile("file",".txt", file.getParentFile());
+            
+            String nullLine = null;
+            String charset = "US-ASCII";
+            String delete = username + "-";
+            
+            BufferedReader br = new BufferedReader(new FileReader("friendRequests.txt"));
+            PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), charset));
+        
+            for (String line; (line = br.readLine()) != null;){
+                String splitLine[] = line.split(":");
+
+                //Check username requesting is not own username
+                if (!username.equals(splitLine[0])){
+                    //Check to see if user already has friend request
+                    if (splitLine.length > 1 ){
+                        //Split current friendship requests to check for current request
+                        String friendRequests[] = splitLine[1].split("-");
+                        boolean isRequest = true;
+                        //Loop over current friendslist to check if friend request is already made
+                        for(int i =0; i < friendRequests.length; i++){
+                            //If friend request is equal to username then you have already asked friend
+                            if(friendRequests[i].equals(username)){
+                                isRequest = false;
+                            }
+                        }
+                        //If it's true append request to end of requests
+                        if (isRequest){
+                            line += "-" + username;
+                            pw.println(line);
+                            br.close();
+                            pw.close();
+                            file.delete();
+                            temp.renameTo(file);
+                            return("Request Successful");
+                        }
+                        //Else tell user they have already requested this
+                        else{
+                            System.out.println("Already asked friend");
+                            br.close();
+                            pw.close();
+                            file.delete();
+                            temp.renameTo(file);
+                            return("Already asked friend");
+                        }
+
+                    }
+                    //If they have no friend requests
+                    else
+                    {
+                        line = friend + ":" + username;
+                        pw.println(line);
+                        br.close();
+                        pw.close();
+                        file.delete();
+                        temp.renameTo(file);
+                        return("Request Successful");
+                    }
+                }
+                //Else return own username so cannot send friend request
+            }
+        } catch (IOException ex) {
+            System.out.println(ex);
+        }
+return("Request unsuccessful");
+}
+
 //Last bracket for class
 }
 

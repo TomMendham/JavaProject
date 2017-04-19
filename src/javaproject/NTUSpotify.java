@@ -106,6 +106,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         refusejButton = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
         requestsjList = new javax.swing.JList<>();
+        friendRequestStatusLabel = new javax.swing.JLabel();
         profilejPanel = new javax.swing.JPanel();
         profilePicLabel = new javax.swing.JLabel();
         userNameLabel = new javax.swing.JLabel();
@@ -551,11 +552,12 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addGroup(friendsChatjPanelLayout.createSequentialGroup()
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(requestFriendshipjButton)
-                            .addComponent(chatjButton)))
+                        .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(requestFriendshipjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(chatjButton)
+                            .addComponent(friendRequestStatusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(connectedPeoplejLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(requestsjLabel)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -574,7 +576,9 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addComponent(requestsjLabel))
                 .addGroup(friendsChatjPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, friendsChatjPanelLayout.createSequentialGroup()
-                        .addGap(23, 53, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                        .addComponent(friendRequestStatusLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(requestFriendshipjButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(chatjButton)
@@ -594,8 +598,6 @@ public class NTUSpotify extends javax.swing.JFrame {
                                     .addComponent(jScrollPane6))
                                 .addContainerGap())))))
         );
-
-        friendsChatjPanelLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {connectedPeoplejLabel, requestsjLabel});
 
         home.addTab("Friends & Chat", friendsChatjPanel);
 
@@ -874,30 +876,6 @@ public class NTUSpotify extends javax.swing.JFrame {
         PasswordField.setText("");
     }//GEN-LAST:event_logoutButtonActionPerformed
 
-    private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
-        String friend = connectedPeopleList.getSelectedValue();
-        String username = usernameField.getText();
-        String message = username + "-" + friend;
-        socketClient.request("friendRequest", message);
-    }//GEN-LAST:event_requestFriendshipjButtonActionPerformed
-
-    private void chatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatjButtonActionPerformed
-        mainPanel.removeAll();
-        mainPanel.add(chat);
-        mainPanel.repaint();
-        mainPanel.revalidate();
-    }//GEN-LAST:event_chatjButtonActionPerformed
-
-    private void acceptjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptjButtonActionPerformed
-        String request = requestsjList.getSelectedValue();
-        RequestsListModel.removeElement(request);
-    }//GEN-LAST:event_acceptjButtonActionPerformed
-
-    private void refusejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusejButtonActionPerformed
-        String request = requestsjList.getSelectedValue();
-        RequestsListModel.removeElement(request);
-    }//GEN-LAST:event_refusejButtonActionPerformed
-
     private void backjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backjButtonActionPerformed
         mainPanel.removeAll();
         mainPanel.add(home);
@@ -1019,6 +997,37 @@ public class NTUSpotify extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_friendListValueChanged
 
+    private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
+        String friend = connectedPeopleList.getSelectedValue();
+        String username = usernameField.getText();
+        String message = username + "-" + friend;
+        if (!username.equals(friend))
+        {
+            friendRequestStatusLabel.setText(socketClient.request("friendRequest", message));
+        }
+        else
+        {
+            friendRequestStatusLabel.setText("Cannot request yourself");
+        }
+    }//GEN-LAST:event_requestFriendshipjButtonActionPerformed
+
+    private void chatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatjButtonActionPerformed
+        mainPanel.removeAll();
+        mainPanel.add(chat);
+        mainPanel.repaint();
+        mainPanel.revalidate();
+    }//GEN-LAST:event_chatjButtonActionPerformed
+
+    private void acceptjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptjButtonActionPerformed
+        String request = requestsjList.getSelectedValue();
+        RequestsListModel.removeElement(request);
+    }//GEN-LAST:event_acceptjButtonActionPerformed
+
+    private void refusejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusejButtonActionPerformed
+        String request = requestsjList.getSelectedValue();
+        RequestsListModel.removeElement(request);
+    }//GEN-LAST:event_refusejButtonActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
     private javax.swing.JButton CancelButton;
@@ -1051,6 +1060,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JLabel favouriteGenresLabel;
     private javax.swing.JLabel friendLabel;
     private javax.swing.JList<String> friendList;
+    private javax.swing.JLabel friendRequestStatusLabel;
     private javax.swing.JPanel friendsChatjPanel;
     private javax.swing.JTabbedPane home;
     private javax.swing.JPanel homejPanel;
