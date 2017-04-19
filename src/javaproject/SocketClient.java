@@ -40,7 +40,8 @@ public class SocketClient {
           int c;
           while ( (c = isr.read()) != 14){
               input.append( (char) c);
-          }    
+          }
+         
          //Close the connection
          connection.close();
          return(input.toString());

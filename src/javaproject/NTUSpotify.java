@@ -787,11 +787,11 @@ public class NTUSpotify extends javax.swing.JFrame {
              @Override
              public void run() 
              {
-                String usernames = socketClient.request("updateLoginList","");
+                String usernames = socketClient.request("updateLoginList","nodata-nodata");
                 String[] usernameList = usernames.split("-");
                 OnlineListModel.removeAllElements();
                 
-                String posts = socketClient.request("updatePostList","");
+                String posts = socketClient.request("updatePostList","nodata-nodata");
                 postTextArea.setText(posts);
 
                 for (int i = 0; i < usernameList.length; i++)
