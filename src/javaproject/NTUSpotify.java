@@ -8,8 +8,6 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 
-
-
 /**
  *
  * @author Thomas
@@ -35,7 +33,6 @@ public class NTUSpotify extends javax.swing.JFrame {
         setIcon();
         this.setLocationRelativeTo(null);
         this.setTitle("NTU Music Network");
-        
     }
 
     /**
@@ -776,11 +773,11 @@ public class NTUSpotify extends javax.swing.JFrame {
        
         String username = usernameField.getText();
         String password = PasswordField.getText();
-        String isCorrect = socketClient.checkCredentials(username,password,"L");
-   
+        String message = username + "-" + password + "-" + "L";
+        String isCorrect = socketClient.request("checkCredentials",message);
         if (isCorrect.equals("correct"))
         {
-        socketClient.connect(username, "loginUser");
+        socketClient.request("loginUser", username);
         this.setTitle("NTU Music Network - "+ username);
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
         java.util.Timer t = new java.util.Timer();
@@ -789,19 +786,16 @@ public class NTUSpotify extends javax.swing.JFrame {
              @Override
              public void run() 
              {
-                String usernames = socketClient.request("updateLoginList");
+                String usernames = socketClient.request("updateLoginList","");
                 String[] usernameList = usernames.split("-");
                 OnlineListModel.removeAllElements();
                 
-                String posts = socketClient.request("updatePostList");
+                String posts = socketClient.request("updatePostList","");
                 postTextArea.setText(posts);
 
                 for (int i = 0; i < usernameList.length; i++)
-                {
-                    if(!usernameList[i].equals("\r\n")&&(!usernameList[i].equals(username)))
-                    {
+                { 
                     OnlineListModel.addElement(usernameList[i]);
-                    }
                 }
             }
         }, 0, 10000);
@@ -849,7 +843,7 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         String username = usernameField.getText();
-        socketClient.connect(username,"logoutUser");
+        socketClient.request("logoutUser",username);
         this.setTitle("NTU Music Network");
         mainPanel.removeAll();
         mainPanel.add(logIn);
@@ -862,8 +856,8 @@ public class NTUSpotify extends javax.swing.JFrame {
     private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
         String friend = connectedPeopleList.getSelectedValue();
         String username = usernameField.getText();
-        
-        socketClient.friendRequest(username,friend);
+        String message = username + "-" + friend;
+        socketClient.request("friendRequest", message);
     }//GEN-LAST:event_requestFriendshipjButtonActionPerformed
 
     private void chatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatjButtonActionPerformed
@@ -894,11 +888,10 @@ public class NTUSpotify extends javax.swing.JFrame {
        String username = usernameField.getText();
        String password = RegisterPasswordField.getText();
        String dateOfBirth = DOBTextField.getText();
-       String identifier = "R";
+       String message = username + "-" + password + "-"+ "R";
        //Checking if a user with the same username already exists
-       String exists = socketClient.checkCredentials(username,password,identifier);
+       String exists = socketClient.request("checkCredentials",message);
        
-   
        if (exists.equals("incorrect"))
        {
             String genresString = "";
@@ -908,8 +901,8 @@ public class NTUSpotify extends javax.swing.JFrame {
                 genresString += GenreList.getModel().getElementAt(i);
                 genresString += "_";
            }
-           
-           socketClient.registering(username,password,dateOfBirth,genresString);
+           message = username+"-"+password+"-"+dateOfBirth+"-"+genresString;
+           socketClient.request("registering", message);
            
             ConnectionLabel.setText("");
             mainPanel.removeAll();
@@ -979,7 +972,8 @@ public class NTUSpotify extends javax.swing.JFrame {
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
         String post = postTextField.getText();
         String username = usernameField.getText();
-        socketClient.post(username, post);
+        String message = username + "-" + post;
+        socketClient.request("makePost", message);
         postTextField.setText("");
     }//GEN-LAST:event_sendButtonActionPerformed
 
