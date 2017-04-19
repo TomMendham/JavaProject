@@ -779,6 +779,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         {
         socketClient.request("loginUser", username);
         this.setTitle("NTU Music Network - "+ username);
+
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
         java.util.Timer t = new java.util.Timer();
         t.schedule(new TimerTask() 

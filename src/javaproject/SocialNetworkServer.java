@@ -54,55 +54,53 @@ public void run() {
          
       //Splitting the input into an array
       String[] parts = process.toString().split("~");
+      String identifier = parts[0];
       String[] content = parts[1].split("-");
       
       BufferedOutputStream os = new BufferedOutputStream(connection.getOutputStream());
       OutputStreamWriter osw = new OutputStreamWriter(os, "US-ASCII");
-      
-      //Loop over the string for identifiers for functions
-      for (int i = 0; i < parts.length; i++){
-          if (parts[i].equals("checkCredentials"))
+ 
+          if (identifier.equals("checkCredentials"))
           {
           //Check credentials and write the output
           String returnCode = SocialNetworkServer.checkCredentials("input.txt", content[0], content[1], content[2]);
           osw.write(returnCode + (char)14);
           }
-          else if(parts[i].equals("loginUser"))
+          else if(identifier.equals("loginUser"))
           {
               SocialNetworkServer.login(content[0]);
               osw.write("COMPLETE" + (char)14);
           }
-          else if(parts[i].equals("logoutUser"))
+          else if(identifier.equals("logoutUser"))
           {
               SocialNetworkServer.logout(content[0]);
               osw.write("COMPLETE" + (char)14);
           }
-          else if(parts[i].equals("updateLoginList"))
+          else if(identifier.equals("updateLoginList"))
           {
               String usernames = SocialNetworkServer.updateList("activeusers.txt");
               osw.write(usernames + (char)14);
           }
-          else if(parts[i].equals("updatePostList"))
+          else if(identifier.equals("updatePostList"))
           {
               String post = SocialNetworkServer.updateList("userPosts.txt");
               osw.write(post + (char)14);
           }
-          else if(parts[i].equals("registering"))
+          else if(identifier.equals("registering"))
           {
               SocialNetworkServer.registering("input.txt",content[0], content[1], content[2], content[3]);
               osw.write("COMPLETE" + (char)14);
           }
-          else if(parts[i].equals("makePost"))
+          else if(identifier.equals("makePost"))
           {
               SocialNetworkServer.post(content[0], content[1]);
               osw.write("COMPLETE" + (char)14);
           }
-          else if(parts[i].equals("friendRequest"))
+          else if(identifier.equals("friendRequest"))
           {
               SocialNetworkServer.friendRequest(content[0],content[1]);
               osw.write("COMPLETE" + (char)14);
           }
-      }
       osw.flush();
     }
     catch (Exception e) {
