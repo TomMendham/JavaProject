@@ -1000,14 +1000,14 @@ public class NTUSpotify extends javax.swing.JFrame {
     private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
         String friend = connectedPeopleList.getSelectedValue();
         String username = usernameField.getText();
+        friend =  friend.replace("\r\n", "");
         String message = username + "-" + friend;
-        if (!username.equals(friend))
-        {
-            friendRequestStatusLabel.setText(socketClient.request("friendRequest", message));
+        if (!friend.equals(username)){
+        friendRequestStatusLabel.setText(socketClient.request("friendRequest", message));
         }
         else
         {
-            friendRequestStatusLabel.setText("Cannot request yourself");
+            friendRequestStatusLabel.setText("Cannot add self");
         }
     }//GEN-LAST:event_requestFriendshipjButtonActionPerformed
 
