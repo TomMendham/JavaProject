@@ -12,9 +12,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
 /**
  *
@@ -22,6 +22,7 @@ import javafx.scene.media.MediaPlayer;
  */
 public class SocialNetworkServer implements Runnable {
     private Socket connection;
+    private static Player player;
         
      public static void main(String[] args) {
         int port = 19999;
@@ -124,9 +125,9 @@ public void run() {
           }
           else if (identifier.equals("playSong"))
           {
-              SocialNetworkServer.playSong(content[0]);
+              SocialNetworkServer.playSong(content[0], content[1]);
               osw.write("COMPLETE" + (char)14);
-          }         
+          }       
               
       osw.flush();
     }
@@ -288,17 +289,32 @@ public static String getDetails(String friend, String fileName){
     
   return content;
 }
-public static void playSong(String songName){
-    
-    songName += ".mp3";
-        File f = new File(songName);
+public static void playSong(String songName, String identifier){
+        songName += ".mp3";
+        try{
+            
+        File file = new File(songName);
+        FileInputStream fis = new FileInputStream(file);
+        BufferedInputStream bis = new BufferedInputStream(fis);
         
-        if(f.exists() && f.isFile()) { 
-            Media hit = new Media(new File(songName).toURI().toString());
-            MediaPlayer mediaPlayer = new MediaPlayer(hit);
-            mediaPlayer.play();
-        }
+        try{
+            
+            if (identifier.equals("play"))
+            {
+                player = new Player(bis);
+                player.play(); 
+                
+            }
+            else if (identifier.equals("stop")) 
+            {
+                player.close();
+            }
+
+        }catch(JavaLayerException ex){}
+        
+        }catch(IOException e){}
 }
+
 public static String friendRequest(String username, String friend, String fileName){
         try {
             //Check for username

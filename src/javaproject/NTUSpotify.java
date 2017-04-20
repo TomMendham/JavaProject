@@ -7,6 +7,8 @@ package javaproject;
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import javax.swing.event.ListSelectionEvent;
 
 /**
@@ -25,6 +27,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     DefaultListModel<String> FriendListModel;
     DefaultListModel<String> SharedSongsListModel;
     SocketClient socketClient = new SocketClient();
+    ExecutorService music = Executors.newFixedThreadPool(4);
     
     public NTUSpotify() {
         
@@ -438,30 +441,28 @@ public class NTUSpotify extends javax.swing.JFrame {
                         .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(friendLabel)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                         .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(homejPanelLayout.createSequentialGroup()
                                 .addComponent(informationLabel)
-                                .addGap(0, 145, Short.MAX_VALUE))
+                                .addGap(0, 153, Short.MAX_VALUE))
                             .addComponent(jScrollPane11)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(homejPanelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(uploadSongsButton))
+                    .addGroup(homejPanelLayout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(homejPanelLayout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(uploadSongsButton))
-                            .addGroup(homejPanelLayout.createSequentialGroup()
-                                .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(stopButton))))
+                        .addComponent(playButton)
+                        .addGap(10, 10, 10)
+                        .addComponent(stopButton))
                     .addGroup(homejPanelLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(currentSongLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(homejPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 181, Short.MAX_VALUE)
                         .addGap(10, 10, 10)
                         .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(homejPanelLayout.createSequentialGroup()
@@ -479,7 +480,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addComponent(sharedSongsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homejPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(logoutButton))
@@ -912,7 +913,14 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         String songName = sharedSongs.getSelectedValue();
-        socketClient.request("playSong",songName);
+        currentSongLabel.setText(songName);
+        
+        //Creating a new thread which plays the song in the background
+        music.submit(new Runnable() {
+        public void run() {
+            socketClient.request("playSong",songName + "-"+ "play");
+        }
+        });  
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -925,6 +933,9 @@ public class NTUSpotify extends javax.swing.JFrame {
         mainPanel.revalidate();
         usernameField.setText("");
         PasswordField.setText("");
+        
+        String songName = currentSongLabel.getText();
+        socketClient.request("playSong",songName + "-" + "stop");  
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void backjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backjButtonActionPerformed
@@ -1054,7 +1065,8 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_refusejButtonActionPerformed
 
     private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopButtonActionPerformed
-        // TODO add your handling code here:
+        String songName = currentSongLabel.getText();
+        socketClient.request("playSong",songName + "-" + "stop");  
     }//GEN-LAST:event_stopButtonActionPerformed
 
     private void uploadSongsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadSongsButtonActionPerformed
