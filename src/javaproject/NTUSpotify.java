@@ -848,18 +848,21 @@ public class NTUSpotify extends javax.swing.JFrame {
              @Override
              public void run() 
              {
+                OnlineListModel.removeAllElements();
                 String usernames = socketClient.request("updateLoginList","nodata-nodata");
                 String[] usernameList = usernames.split("-");
                 
                 for (int i = 0; i < usernameList.length; i++)
-                { 
-                    OnlineListModel.addElement(usernameList[i]);
+                {
+                    if (usernameList[i].equals("\r\n")){
+                        OnlineListModel.addElement(usernameList[i]);
+                    }
                 }
                 
                 String posts = socketClient.request("updatePostList","nodata-nodata");
                 postTextArea.setText(posts);
-                OnlineListModel.removeAllElements();
                 
+                RequestsListModel.removeAllElements();
                 String friendRequest = socketClient.request("updateFriendRequest",username);
                 String[] friendRequests = friendRequest.split("-");
                 

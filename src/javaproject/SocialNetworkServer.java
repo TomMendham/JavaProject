@@ -110,7 +110,7 @@ public void run() {
           }
           else if (identifier.equals("updateFriendRequest"))
           {
-              String details = SocialNetworkServer.getDetails(content[0],"friendRequest.txt");
+              String details = SocialNetworkServer.getDetails(content[0],"friendRequests.txt");
               osw.write(details + (char)14);
           }
           else if (identifier.equals("playSong"))
