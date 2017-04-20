@@ -51,12 +51,12 @@ public class SocketClient {
      
     catch (IOException f) {
       System.out.println("IOException: " + f);
+      return("server");
     }
     catch (Exception g) {
       System.out.println("Exception: " + g);
+      return("server");
     }
-     
-    return ("");
  }
 }
 

@@ -192,7 +192,7 @@ public static void registering(String fileName, String username, String password
        BufferedWriter bw = new BufferedWriter(fw);
        PrintWriter out = new PrintWriter(bw);)
    {
-       out.println("\n\r" + username+ ":" + password + "-" + dateOfBirth + "-" + genresString);
+       out.println("\n\r" + username+ "-" + password + "-" + dateOfBirth + "-" + genresString);
        bw.close();
        out.close();
    }
