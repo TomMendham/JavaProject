@@ -103,9 +103,14 @@ public void run() {
               String friendRequest = SocialNetworkServer.friendRequest(content[0],content[1]);
               osw.write(friendRequest + (char)14);
           }
-          else if (identifier.equals("getDetails"))
+          else if (identifier.equals("getFriendDetails"))
           {
-              String details = SocialNetworkServer.getDetails(content[0]);
+              String details = SocialNetworkServer.getDetails(content[0],"Input.txt");
+              osw.write(details + (char)14);
+          }
+          else if (identifier.equals("updateFriendRequest"))
+          {
+              String details = SocialNetworkServer.getDetails(content[0],"friendRequest.txt");
               osw.write(details + (char)14);
           }
           else if (identifier.equals("playSong"))
@@ -248,11 +253,11 @@ public static void post(String username, String post){
 } 
   catch (IOException e) {}
 }
-public static String getDetails(String friend){
+public static String getDetails(String friend, String fileName){
     String content = "";
     
     try{
-       BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+       BufferedReader br = new BufferedReader(new FileReader(fileName));
        String line = null;
         while ((line = br.readLine())!= null){
             String splitLine[] = line.split(":");
