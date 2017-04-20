@@ -85,8 +85,6 @@ public class NTUSpotify extends javax.swing.JFrame {
         informationLabel = new javax.swing.JLabel();
         sharedSongsLabel = new javax.swing.JLabel();
         logoutButton = new javax.swing.JButton();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        friendList = new javax.swing.JList<>();
         stopButton = new javax.swing.JButton();
         uploadSongsButton = new javax.swing.JButton();
         currentSongLabel = new javax.swing.JLabel();
@@ -94,6 +92,8 @@ public class NTUSpotify extends javax.swing.JFrame {
         userInformationPane = new javax.swing.JTextPane();
         jScrollPane11 = new javax.swing.JScrollPane();
         friendInformationPane = new javax.swing.JTextPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        friendList = new javax.swing.JList<>();
         postsjPanel = new javax.swing.JPanel();
         sendButton = new javax.swing.JButton();
         postTextField = new javax.swing.JTextField();
@@ -402,15 +402,6 @@ public class NTUSpotify extends javax.swing.JFrame {
             }
         });
 
-        friendList.setModel(FriendListModel);
-        friendList.setToolTipText("");
-        friendList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                friendListValueChanged(evt);
-            }
-        });
-        jScrollPane10.setViewportView(friendList);
-
         stopButton.setText("Stop");
         stopButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -433,6 +424,9 @@ public class NTUSpotify extends javax.swing.JFrame {
         friendInformationPane.setEditable(false);
         jScrollPane11.setViewportView(friendInformationPane);
 
+        friendList.setModel(FriendListModel);
+        jScrollPane5.setViewportView(friendList);
+
         javax.swing.GroupLayout homejPanelLayout = new javax.swing.GroupLayout(homejPanel);
         homejPanel.setLayout(homejPanelLayout);
         homejPanelLayout.setHorizontalGroup(
@@ -443,12 +437,12 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addGroup(homejPanelLayout.createSequentialGroup()
                         .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(friendLabel)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(homejPanelLayout.createSequentialGroup()
                                 .addComponent(informationLabel)
-                                .addGap(0, 140, Short.MAX_VALUE))
+                                .addGap(0, 145, Short.MAX_VALUE))
                             .addComponent(jScrollPane11)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(homejPanelLayout.createSequentialGroup()
@@ -460,14 +454,14 @@ public class NTUSpotify extends javax.swing.JFrame {
                             .addGroup(homejPanelLayout.createSequentialGroup()
                                 .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(stopButton))
-                            .addGroup(homejPanelLayout.createSequentialGroup()
-                                .addGap(26, 26, 26)
-                                .addComponent(currentSongLabel)))))
+                                .addComponent(stopButton))))
+                    .addGroup(homejPanelLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(currentSongLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(homejPanelLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                         .addGap(10, 10, 10)
                         .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(homejPanelLayout.createSequentialGroup()
@@ -485,26 +479,27 @@ public class NTUSpotify extends javax.swing.JFrame {
                     .addComponent(sharedSongsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 187, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 188, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homejPanelLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(logoutButton))
                     .addGroup(homejPanelLayout.createSequentialGroup()
-                        .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
                         .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(homejPanelLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homejPanelLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
                                 .addComponent(currentSongLabel)
                                 .addGap(14, 14, 14)
                                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(playButton)
                                     .addComponent(stopButton))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(uploadSongsButton))
-                            .addComponent(jScrollPane1))))
+                                .addComponent(uploadSongsButton)))))
                 .addContainerGap())
         );
 
@@ -852,25 +847,29 @@ public class NTUSpotify extends javax.swing.JFrame {
                 String usernames = socketClient.request("updateLoginList","nodata-nodata");
                 String[] usernameList = usernames.split("-");
                 
-                for (int i = 0; i < usernameList.length; i++)
+                for (int i = 1; i < usernameList.length; i++)
                 {
-                    if (usernameList[i].equals("\r\n")){
-                        OnlineListModel.addElement(usernameList[i]);
-                    }
+                    OnlineListModel.addElement(usernameList[i]);
                 }
                 
                 String posts = socketClient.request("updatePostList","nodata-nodata");
                 postTextArea.setText(posts);
                 
-                RequestsListModel.removeAllElements();
-                String friendRequest = socketClient.request("updateFriendRequest",username);
-                String[] friendRequests = friendRequest.split("-");
+                FriendListModel.removeAllElements();
+                String friends = socketClient.request("updateFriendList", username);
+                String[] friendNames = friends.split("-");
                 
-                for (int i = 0; i<friendRequests.length; i++){
-                    RequestsListModel.addElement(friendRequests[i]);
+                for (int i = 0; i<friendNames.length; i++){
+                    FriendListModel.addElement(friendNames[i]);
                 }
-                              
-                
+
+                String friendRequest = socketClient.request("getFriendRequest",username);
+                String[] friendRequests = friendRequest.split("-");
+                RequestsListModel.removeAllElements();
+                for (int i = 0; i<friendRequests.length; i++){
+                RequestsListModel.addElement(friendRequests[i]);
+                }
+
             }
         }, 0, 10000);
         
@@ -1021,23 +1020,6 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     }//GEN-LAST:event_sharedSongsValueChanged
 
-    private void friendListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_friendListValueChanged
-        //Clear text area and shared song list
-        friendInformationPane.removeAll();
-        sharedSongs.removeAll();
-        
-        //Getting the selected friend details       
-        String friendName = friendList.getSelectedValue();
-        String details = socketClient.request("getDetails",friendName);
-        String[] allDetails = details.split("-");
-        
-        //Displaying the selected friend details
-        for (int i = 0;i < allDetails.length; i++)
-        {
-            friendInformationPane.setText(allDetails[i] + "\n");
-        }    
-    }//GEN-LAST:event_friendListValueChanged
-
     private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
         String friend = connectedPeopleList.getSelectedValue();
         String username = usernameField.getText();
@@ -1062,6 +1044,8 @@ public class NTUSpotify extends javax.swing.JFrame {
     private void acceptjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptjButtonActionPerformed
         String request = requestsList.getSelectedValue();
         RequestsListModel.removeElement(request);
+        String acceptRequest = socketClient.request("acceptRequest", usernameField.getText()+"-"+request+"-"+"accept");
+        socketClient.request("removeRequest", usernameField.getText()+"-"+request);
     }//GEN-LAST:event_acceptjButtonActionPerformed
 
     private void refusejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusejButtonActionPerformed
@@ -1119,11 +1103,11 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;

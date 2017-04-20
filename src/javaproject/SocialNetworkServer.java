@@ -100,15 +100,24 @@ public void run() {
           }
           else if(identifier.equals("friendRequest"))
           {
-              String friendRequest = SocialNetworkServer.friendRequest(content[0],content[1]);
+              String friendRequest = SocialNetworkServer.friendRequest(content[0],content[1],"friendRequests.txt");
               osw.write(friendRequest + (char)14);
           }
-          else if (identifier.equals("getFriendDetails"))
+          else if(identifier.equals("acceptRequest")){
+              String friendRequest = SocialNetworkServer.friendRequest(content[0], content[1], "userFriends.txt");
+              osw.write(friendRequest + (char) 14);
+          }
+          else if(identifier.equals("removeRequest"))
           {
-              String details = SocialNetworkServer.getDetails(content[0],"Input.txt");
+              SocialNetworkServer.removeRequest(content[0],content[1]);
+              osw.write("COMPLETE" + (char)14);
+          }
+          else if (identifier.equals("updateFriendList"))
+          {
+              String details = SocialNetworkServer.getDetails(content[0],"userFriends.txt");
               osw.write(details + (char)14);
           }
-          else if (identifier.equals("updateFriendRequest"))
+          else if (identifier.equals("getFriendRequest"))
           {
               String details = SocialNetworkServer.getDetails(content[0],"friendRequests.txt");
               osw.write(details + (char)14);
@@ -166,7 +175,8 @@ public static String checkCredentials(String fileName, String username, String p
                     return ("correct");                 
                 }
             }            
-        }                
+        }
+        br.close();
     } 
     catch (FileNotFoundException e)
     {
@@ -181,7 +191,9 @@ public static void registering(String fileName, String username, String password
        BufferedWriter bw = new BufferedWriter(fw);
        PrintWriter out = new PrintWriter(bw);)
    {
-       out.println("\n\r" + username+ "-" + password + "-" + dateOfBirth + "-" + genresString);
+       out.println("\n\r" + username+ ":" + password + "-" + dateOfBirth + "-" + genresString);
+       bw.close();
+       out.close();
    }
    catch(IOException e){
        
@@ -193,6 +205,8 @@ public static void login(String username){
     PrintWriter output = new PrintWriter(bw))
 {
     output.println(username + "-");
+    bw.close();
+    output.close();
 } 
   catch (IOException e) {}
 }
@@ -267,10 +281,10 @@ public static String getDetails(String friend, String fileName){
                 content = splitLine[1];
             }
         }
+        br.close();
     } 
         catch(IOException e){
    }
-    
     
   return content;
 }
@@ -285,20 +299,19 @@ public static void playSong(String songName){
             mediaPlayer.play();
         }
 }
-public static String friendRequest(String username, String friend){
+public static String friendRequest(String username, String friend, String fileName){
         try {
             //Check for username
             //if username is already in write next to name
             //if not in there write new line
-            File file = new File("friendRequests.txt");
+            File file = new File(fileName);
             File temp = file.createTempFile("file",".txt", file.getParentFile());
             
             String status = null;
-            boolean alreadyAdded = true;
             String charset = "US-ASCII";
             String delete = username + "-";
             
-            BufferedReader br = new BufferedReader(new FileReader("friendRequests.txt"));
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
             PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), charset));
         
             for (String line; (line = br.readLine()) != null;){
@@ -366,7 +379,58 @@ public static String friendRequest(String username, String friend){
         }
 return("Request unsuccessful");
 }
-
+public static void removeRequest(String username, String friend){
+ try {
+    //Open friend request file and temp file
+    File file = new File("friendRequests.txt");
+    File temp = file.createTempFile("file",".txt", file.getParentFile());
+    
+    //Set char type and username to delete
+    String charset = "US-ASCII";
+    String delete = friend;
+    
+    //Declare buffered reader and print writer for file and temp file
+    BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), charset));
+    PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), charset));
+    
+    //Iterate over file deleting relevant request
+    for (String line; (line = br.readLine()) != null;) 
+    {
+        String splitLine[] = line.split(":");
+        if(username.equals(splitLine[0]))
+        {
+            String friendRequests[] = splitLine[1].split("-");
+            for (int i = 0; i < friendRequests.length; i++)
+            {
+                if(friendRequests[i].equals(friend)){
+                    line = line.replace(delete, "");
+                }
+                else if((friendRequests.length==1)&&(friendRequests.length<friendRequests.length)){
+                    line = line.replace(delete+"-", "");
+                }
+                else
+                {
+                    line = line.replace("-"+delete, "");
+                }
+            }
+        }
+        System.out.println(line);
+        pw.println(line);
+    }
+       
+    //Close file writer and print writer
+    br.close();
+    pw.close();
+    
+    //Delete friend file file
+    file.delete();
+    //Rename temp to friend
+    temp.renameTo(file);
+    }
+    catch (FileNotFoundException e) {}   
+    catch (UnsupportedEncodingException f) {} 
+    catch (IOException g) {System.out.println(g);} 
+}
 //Last bracket for class
 }
 

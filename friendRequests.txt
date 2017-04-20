@@ -1,4 +1,4 @@
-Taran:Tom-Billy
-Emil:Tom-Billy
-Billy:Tom
-Tom:Billy
+Taran:
+Emil:-Tom
+Billy:
+Tom:
