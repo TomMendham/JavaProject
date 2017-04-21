@@ -420,6 +420,11 @@ public class NTUSpotify extends javax.swing.JFrame {
         jScrollPane11.setViewportView(friendInformationPane);
 
         friendList.setModel(FriendListModel);
+        friendList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                friendListValueChanged(evt);
+            }
+        });
         jScrollPane5.setViewportView(friendList);
 
         jButton1.setText("Upload Picture");
@@ -770,7 +775,18 @@ public class NTUSpotify extends javax.swing.JFrame {
         {
         socketClient.request("loginUser", username);
         this.setTitle("NTU Music Network - "+ username);
-
+        
+        //Get user information and display it
+        String content = socketClient.request("getUserInformation",username);
+        String[] information = content.split("-");
+        String userInformation = "Your information:\r\n";
+        
+        for (int i = 0; i<information.length;i++)
+        {
+            userInformation+= information[i]+"\r\n";
+        }
+        
+        userInformationPane.setText(userInformation);
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
         java.util.Timer t = new java.util.Timer();
         t.schedule(new TimerTask() 
@@ -984,7 +1000,6 @@ public class NTUSpotify extends javax.swing.JFrame {
         String request = requestsList.getSelectedValue();
         RequestsListModel.removeElement(request);
         String acceptRequest = socketClient.request("acceptRequest", usernameField.getText()+"-"+request+"-"+"accept");
-        socketClient.request("removeRequest", usernameField.getText()+"-"+request);
     }//GEN-LAST:event_acceptjButtonActionPerformed
 
     private void refusejButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusejButtonActionPerformed
@@ -1001,6 +1016,21 @@ public class NTUSpotify extends javax.swing.JFrame {
     private void uploadSongsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadSongsButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_uploadSongsButtonActionPerformed
+
+    private void friendListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_friendListValueChanged
+        String name = friendList.getSelectedValue();
+        String content = socketClient.request("getUserInformation",name);
+        
+        String[] information = content.split("-");
+        String friendInformation = "Friend information:\n";
+        
+        for (int i = 0; i<information.length;i++)
+        {
+            friendInformation+= information[i]+"\n";
+        }
+        
+        friendInformationPane.setText(friendInformation);
+    }//GEN-LAST:event_friendListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;

@@ -106,6 +106,9 @@ public void run() {
           }
           else if(identifier.equals("acceptRequest")){
               String friendRequest = SocialNetworkServer.friendRequest(content[0], content[1], "userFriends.txt");
+              String friendRequest2 = SocialNetworkServer.friendRequest(content[1], content[0], "userFriends.txt");
+              SocialNetworkServer.removeRequest(content[0],content[1]);
+              SocialNetworkServer.removeRequest(content[1],content[0]);
               osw.write(friendRequest + (char) 14);
           }
           else if(identifier.equals("removeRequest"))
@@ -122,6 +125,11 @@ public void run() {
           {
               String details = SocialNetworkServer.getDetails(content[0],"friendRequests.txt");
               osw.write(details + (char)14);
+          }
+          else if(identifier.equals("getUserInformation"))
+          {
+              String userInformation = SocialNetworkServer.getUserDetails(content[0]);
+              osw.write(userInformation+(char)14);
           }
           else if (identifier.equals("playSong"))
           {
@@ -269,7 +277,7 @@ public static void post(String username, String post){
   catch (IOException e) {}
 }
 public static String getDetails(String friend, String fileName){
-    String content = "";
+    String content = null;
     
     try{
        BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -280,6 +288,29 @@ public static String getDetails(String friend, String fileName){
             //Check username in file
             if (friend.equals(splitLine[0])){
                 content = splitLine[1];
+            }
+        }
+        br.close();
+    } 
+        catch(IOException e){
+   }
+    
+  return content;
+}
+public static String getUserDetails(String user){
+    String content ="";
+    
+    try{
+       BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+       String line = null;
+        while ((line = br.readLine())!= null){
+            String splitLine[] = line.split("-");
+            
+            //Check username in file
+            if (user.equals(splitLine[0])){
+                for(int i = 2; i < splitLine.length; i++){
+                    content+= splitLine[i] +"-";
+                }
             }
         }
         br.close();
@@ -314,7 +345,6 @@ public static void playSong(String songName, String identifier){
         
         }catch(IOException e){}
 }
-
 public static String friendRequest(String username, String friend, String fileName){
         try {
             //Check for username
