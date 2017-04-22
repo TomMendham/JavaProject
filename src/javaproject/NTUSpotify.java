@@ -98,7 +98,8 @@ public class NTUSpotify extends javax.swing.JFrame {
         friendInformationPane = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         friendList = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        uploadPicButton = new javax.swing.JButton();
+        profilePic = new javax.swing.JLabel();
         postsjPanel = new javax.swing.JPanel();
         sendButton = new javax.swing.JButton();
         postTextField = new javax.swing.JTextField();
@@ -424,7 +425,12 @@ public class NTUSpotify extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(friendList);
 
-        jButton1.setText("Upload Picture");
+        uploadPicButton.setText("Upload Picture");
+        uploadPicButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadPicButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout homejPanelLayout = new javax.swing.GroupLayout(homejPanel);
         homejPanel.setLayout(homejPanelLayout);
@@ -459,13 +465,14 @@ public class NTUSpotify extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
-                            .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(uploadPicButton)
+                            .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(profilePic)))
                     .addComponent(sharedSongsLabel))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        homejPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jButton1, logoutButton});
+        homejPanelLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {logoutButton, uploadPicButton});
 
         homejPanelLayout.setVerticalGroup(
             homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -479,8 +486,9 @@ public class NTUSpotify extends javax.swing.JFrame {
                 .addGroup(homejPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, homejPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(profilePic)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(uploadPicButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(logoutButton))
                     .addGroup(homejPanelLayout.createSequentialGroup()
@@ -825,6 +833,13 @@ public class NTUSpotify extends javax.swing.JFrame {
             }
         }, 0, 10000);
         
+        //Setting the user icon
+        String setIcon = socketClient.request("getFileNames",username + "-" + "userIcon.txt");
+        if (setIcon != "")
+        {
+        ImageIcon icon = new ImageIcon(setIcon); 
+        profilePic.setIcon(icon);            
+        }        
         
         ConnectionLabel.setText("");
         mainPanel.removeAll();
@@ -1026,7 +1041,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         String userName = usernameField.getText();
         
         socketClient.request("uploadFiles",filePath);
-        String check = socketClient.request("linkSongs",userName + "-" + fileName);
+        String check = socketClient.request("linkFiles",userName + "-" + fileName + "-" + "userSongs.txt");
         
         currentSongLabel.setText(check);
         
@@ -1035,7 +1050,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     private void friendListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_friendListValueChanged
         String name = friendList.getSelectedValue();
         String content = socketClient.request("getUserInformation",name);
-        String uploadedMusic = socketClient.request("getMusicNames",name);
+        String uploadedMusic = socketClient.request("getFileNames",name + "-" + "userSongs.txt");
         
         String[] information = content.split("-");
         String friendInformation = "Friend information:\n";
@@ -1061,6 +1076,31 @@ public class NTUSpotify extends javax.swing.JFrame {
         String receiver = nameLabel.getText();
         String sendingMessage = messageTextField.getText();        
     }//GEN-LAST:event_sendMessageButtonActionPerformed
+
+    private void uploadPicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPicButtonActionPerformed
+        //Setting up the file chooser
+        JFileChooser chooser = new JFileChooser();
+        chooser.showOpenDialog(null);
+        File f = chooser.getSelectedFile();
+        //Getting the path of the desired file to be uploaded
+        String filePath = f.getAbsolutePath();
+        String fileName = f.getName();
+        String userName = usernameField.getText();
+        
+        socketClient.request("uploadFiles",filePath);
+        
+        String check = socketClient.request("linkFiles",userName + "-" + fileName + "-" + "userIcon.txt");
+        
+        if (check.equals("addedSuccessfully"))
+        {
+            //Setting the user icon
+            String setIcon = socketClient.request("getFileNames",userName + "-" + "userIcon.txt");
+            ImageIcon icon = new ImageIcon(setIcon); 
+            profilePic.setIcon(icon); 
+        }
+
+  
+    }//GEN-LAST:event_uploadPicButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
@@ -1099,7 +1139,6 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JTabbedPane home;
     private javax.swing.JPanel homejPanel;
     private javax.swing.JLabel informationLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane11;
@@ -1122,6 +1161,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JTextArea postTextArea;
     private javax.swing.JTextField postTextField;
     private javax.swing.JPanel postsjPanel;
+    private javax.swing.JLabel profilePic;
     private javax.swing.JButton refusejButton;
     private javax.swing.JPanel register;
     private javax.swing.JButton requestFriendshipjButton;
@@ -1132,6 +1172,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     private javax.swing.JList<String> sharedSongs;
     private javax.swing.JLabel sharedSongsLabel;
     private javax.swing.JButton stopButton;
+    private javax.swing.JButton uploadPicButton;
     private javax.swing.JButton uploadSongsButton;
     private javax.swing.JTextPane userInformationPane;
     private javax.swing.JTextField usernameField;

@@ -141,14 +141,14 @@ public void run() {
               SocialNetworkServer.uploadFiles(content[0]);
               osw.write("COMPLETE" + (char)14);
           }
-          else if (identifier.equals("linkSongs"))
+          else if (identifier.equals("linkFiles"))
           {
-              String check = SocialNetworkServer.linkSongs(content[0], content[1]);
+              String check = SocialNetworkServer.linkFiles(content[0], content[1], content[2]);
               osw.write(check + (char)14);
           }
-          else if(identifier.equals("getMusicNames"))
+          else if(identifier.equals("getFileNames"))
           {
-              String MusicNames = SocialNetworkServer.getMusicNames(content[0]);
+              String MusicNames = SocialNetworkServer.getFileNames(content[0], content[1]);
               osw.write(MusicNames + (char)14);
           }   
          
@@ -343,11 +343,11 @@ public static String getUserDetails(String user){
   return content;
 }
 
-public static String getMusicNames(String user){
+public static String getFileNames(String user, String folderName){
     String content ="";
     
     try{
-       BufferedReader br = new BufferedReader(new FileReader("userSongs.txt"));
+       BufferedReader br = new BufferedReader(new FileReader(folderName));
        String line = null;
         while ((line = br.readLine())!= null){
             String splitLine[] = line.split(":");
@@ -381,23 +381,33 @@ public static void uploadFiles(String filePath){
     	}
 }
 
-public static String linkSongs(String username, String songName){
+public static String linkFiles(String username, String fileName, String folderName){
     
     String check = "";
+    String match = "no";
+    String lineToRemove = "";
     try 
     {
 
-        BufferedReader br = new BufferedReader(new FileReader("userSongs.txt"));
-        FileWriter fw = new FileWriter("userSongs.txt", true);
+        BufferedReader br = new BufferedReader(new FileReader(folderName));
+        FileWriter fw = new FileWriter(folderName, true);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter pw = new PrintWriter(bw);
+        File inFile = new File(folderName);
+        
+        //Construct the new file that will later be renamed to the original filename. 
+        File tempFile = inFile.createTempFile("file",".txt", inFile.getParentFile());
+        PrintWriter temppw = new PrintWriter(new FileWriter(tempFile));        
+        
         
         String line = null;
 
+        br.mark(1000);
         
         //Check if the folder is empty
         if (br.readLine() != null)
         {
+            br.reset(); // reset to beginning of the file
             //Go through each line in the file
             for (line = null; (line = br.readLine()) != null;)
             {             
@@ -405,40 +415,70 @@ public static String linkSongs(String username, String songName){
                 //Check if the user already uploaded songs
                 if (splitLine[0].equals(username))
                 {
-                    String splitSongs[] = splitLine[1].split("-");
-                    //Check if the user already uploaded this specific song
-                    for (int i = 0; i < splitSongs.length; i++)
+                    match = "yes";
+                    //Check if its an image or a song being uploaded
+                    if (folderName.equals("userSongs.txt"))
                     {
-                        if (splitSongs[i].equals(songName))
+                        String splitSongs[] = splitLine[1].split("-");
+                        //Check if the user already uploaded this specific song
+                        for (int i = 0; i < splitSongs.length; i++)
                         {
-                            check = "alreadyAdded";  
+                            if (splitSongs[i].equals(fileName))
+                            {
+                                check = "alreadyAdded";  
+                            }
+                        }  
+                        if (check != "alreadyAdded")
+                        {
+                            lineToRemove = line;
+                            line += "-" + fileName;
+                            pw.println(line);
+                            check = "addedSuccessfully";
                         }
-                    }  
-                    if (check != "alreadyAdded")
+                    }
+                    else if (folderName.equals("userIcon.txt"))
                     {
-                        line += "-" + songName;
+                        lineToRemove = line;
+                        line = line.replace(splitLine[1], fileName);
                         pw.println(line);
-                        check = "addedSuccessfully";
                     }
                 }
-                else
+                if (match.equals("yes"))
                 {
-                        line = username + ":" + songName;
-                        pw.println(line);
-                        check = "addedSuccessfully";
+                    br.reset(); // reset to beginning of the file
+                    //Read from the original file and write to the new 
+                    //unless content matches data to be removed.
+                    while ((line = br.readLine()) != null) {
+                        if (!line.trim().equals(lineToRemove)) {
+                            temppw.println(line);
+                            temppw.flush();
+                        }
+                    } 
+                 
                 }
+            }
+            if (match.equals("no"))
+            {
+                line = username + ":" + fileName;
+                pw.println(line);
+                check = "addedSuccessfully";
             }
         }
         else
         {
-                        line = username + ":" + songName;
-                        pw.println(line);
-                        check = "addedSuccessfully";            
+            line = username + ":" + fileName;
+            pw.println(line);
+            check = "addedSuccessfully";            
         }
 
         br.close();
         pw.close();
-
+        
+        //Delete active user file
+        inFile.delete();
+        //Rename temp to active user
+        tempFile.renameTo(inFile);           
+              
     } 
     catch (FileNotFoundException e)
     {

@@ -465,8 +465,9 @@
                                   <Component id="jScrollPane3" min="-2" pref="155" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jButton1" linkSize="1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="uploadPicButton" linkSize="1" min="-2" max="-2" attributes="0"/>
                                       <Component id="logoutButton" linkSize="1" min="-2" pref="73" max="-2" attributes="0"/>
+                                      <Component id="profilePic" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="sharedSongsLabel" min="-2" max="-2" attributes="0"/>
@@ -488,8 +489,9 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="jScrollPane3" pref="201" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="profilePic" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="uploadPicButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="logoutButton" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -644,10 +646,15 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="uploadPicButton">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Upload Picture"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="uploadPicButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JLabel" name="profilePic">
                 </Component>
               </SubComponents>
             </Container>
