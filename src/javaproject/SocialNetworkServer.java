@@ -393,12 +393,6 @@ public static String linkFiles(String username, String fileName, String folderNa
         FileWriter fw = new FileWriter(folderName, true);
         BufferedWriter bw = new BufferedWriter(fw);
         PrintWriter pw = new PrintWriter(bw);
-        File inFile = new File(folderName);
-        
-        //Construct the new file that will later be renamed to the original filename. 
-        File tempFile = inFile.createTempFile("file",".txt", inFile.getParentFile());
-        PrintWriter temppw = new PrintWriter(new FileWriter(tempFile));        
-        
         
         String line = null;
 
@@ -441,20 +435,8 @@ public static String linkFiles(String username, String fileName, String folderNa
                         lineToRemove = line;
                         line = line.replace(splitLine[1], fileName);
                         pw.println(line);
+                        check = "addedSuccessfully";
                     }
-                }
-                if (match.equals("yes"))
-                {
-                    br.reset(); // reset to beginning of the file
-                    //Read from the original file and write to the new 
-                    //unless content matches data to be removed.
-                    while ((line = br.readLine()) != null) {
-                        if (!line.trim().equals(lineToRemove)) {
-                            temppw.println(line);
-                            temppw.flush();
-                        }
-                    } 
-                 
                 }
             }
             if (match.equals("no"))
@@ -474,11 +456,10 @@ public static String linkFiles(String username, String fileName, String folderNa
         br.close();
         pw.close();
         
-        //Delete active user file
-        inFile.delete();
-        //Rename temp to active user
-        tempFile.renameTo(inFile);           
-              
+        if (match.equals("yes"))
+        {
+            removeLineFromFile(folderName, lineToRemove);
+        }                
     } 
     catch (FileNotFoundException e)
     {
@@ -487,6 +468,47 @@ public static String linkFiles(String username, String fileName, String folderNa
     catch (IOException g) {}
     return(check);
     }  
+
+public static void removeLineFromFile(String file, String lineToRemove) {
+
+    try {
+        File inFile = new File(file);
+        if (!inFile.isFile()) {
+            System.out.println("Parameter is not an existing file");
+            return;
+        }
+        //Construct the new file that will later be renamed to the original filename. 
+        File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+        BufferedReader br = new BufferedReader(new FileReader(file));
+        PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+        String line ;
+        //Read from the original file and write to the new 
+        //unless content matches data to be removed.
+        while ((line = br.readLine()) != null) {
+            if (!line.trim().equals(lineToRemove)) {
+                pw.println(line);
+                pw.flush();
+            }
+        }
+        pw.close();
+        br.close();
+
+        //Delete the original file
+        if (!inFile.delete()) {
+            System.out.println("Could not delete file");
+            return;
+        }
+        //Rename the new file to the filename the original file had.
+        if (!tempFile.renameTo(inFile))
+            System.out.println("Could not rename file");
+
+    } catch (FileNotFoundException ex) {
+        ex.printStackTrace();
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}
+
 
 public static void playAndStopSong(String songName, String identifier){
         try{

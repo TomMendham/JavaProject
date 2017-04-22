@@ -1078,6 +1078,8 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_sendMessageButtonActionPerformed
 
     private void uploadPicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPicButtonActionPerformed
+        profilePic.setIcon(null);
+
         //Setting up the file chooser
         JFileChooser chooser = new JFileChooser();
         chooser.showOpenDialog(null);
