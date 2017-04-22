@@ -131,12 +131,27 @@ public void run() {
               String userInformation = SocialNetworkServer.getUserDetails(content[0]);
               osw.write(userInformation+(char)14);
           }
-          else if (identifier.equals("playSong"))
+          else if (identifier.equals("playAndStopSong"))
           {
-              SocialNetworkServer.playSong(content[0], content[1]);
+              SocialNetworkServer.playAndStopSong(content[0], content[1]);
               osw.write("COMPLETE" + (char)14);
-          }       
-              
+          }
+          else if (identifier.equals("uploadFiles"))
+          {
+              SocialNetworkServer.uploadFiles(content[0]);
+              osw.write("COMPLETE" + (char)14);
+          }
+          else if (identifier.equals("linkSongs"))
+          {
+              String check = SocialNetworkServer.linkSongs(content[0], content[1]);
+              osw.write(check + (char)14);
+          }
+          else if(identifier.equals("getMusicNames"))
+          {
+              String MusicNames = SocialNetworkServer.getMusicNames(content[0]);
+              osw.write(MusicNames + (char)14);
+          }   
+         
       osw.flush();
     }
     catch (Exception e) {
@@ -287,7 +302,14 @@ public static String getDetails(String friend, String fileName){
             
             //Check username in file
             if (friend.equals(splitLine[0])){
-                content = splitLine[1];
+               if (splitLine.length>1)
+               {
+                   content = splitLine[1];
+               }
+               else
+               {
+                   content = "No Requests";
+               }   
             }
         }
         br.close();
@@ -320,8 +342,113 @@ public static String getUserDetails(String user){
     
   return content;
 }
-public static void playSong(String songName, String identifier){
-        songName += ".mp3";
+
+public static String getMusicNames(String user){
+    String content ="";
+    
+    try{
+       BufferedReader br = new BufferedReader(new FileReader("userSongs.txt"));
+       String line = null;
+        while ((line = br.readLine())!= null){
+            String splitLine[] = line.split(":");
+            
+            //Check username in file
+            if (user.equals(splitLine[0])){
+                    content+= splitLine[1];
+            }
+        }
+        br.close();
+    } 
+        catch(IOException e){
+   }
+    
+  return content;
+}
+
+public static void uploadFiles(String filePath){
+    try{
+
+    	   File afile =new File(filePath);
+
+    	   if(afile.renameTo(new File("C:\\Users\\user\\Desktop\\java\\JavaProject\\" + afile.getName()))){
+    		System.out.println("File is moved successfuly!");
+    	   }else{
+    		System.out.println("File has failed to move! ");
+    	   }
+
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+}
+
+public static String linkSongs(String username, String songName){
+    
+    String check = "";
+    try 
+    {
+
+        BufferedReader br = new BufferedReader(new FileReader("userSongs.txt"));
+        FileWriter fw = new FileWriter("userSongs.txt", true);
+        BufferedWriter bw = new BufferedWriter(fw);
+        PrintWriter pw = new PrintWriter(bw);
+        
+        String line = null;
+
+        
+        //Check if the folder is empty
+        if (br.readLine() != null)
+        {
+            //Go through each line in the file
+            for (line = null; (line = br.readLine()) != null;)
+            {             
+                String splitLine[] = line.split(":");
+                //Check if the user already uploaded songs
+                if (splitLine[0].equals(username))
+                {
+                    String splitSongs[] = splitLine[1].split("-");
+                    //Check if the user already uploaded this specific song
+                    for (int i = 0; i < splitSongs.length; i++)
+                    {
+                        if (splitSongs[i].equals(songName))
+                        {
+                            check = "alreadyAdded";  
+                        }
+                    }  
+                    if (check != "alreadyAdded")
+                    {
+                        line += "-" + songName;
+                        pw.println(line);
+                        check = "addedSuccessfully";
+                    }
+                }
+                else
+                {
+                        line = username + ":" + songName;
+                        pw.println(line);
+                        check = "addedSuccessfully";
+                }
+            }
+        }
+        else
+        {
+                        line = username + ":" + songName;
+                        pw.println(line);
+                        check = "addedSuccessfully";            
+        }
+
+        br.close();
+        pw.close();
+
+    } 
+    catch (FileNotFoundException e)
+    {
+        System.out.println("File not found");
+    }
+    catch (IOException g) {}
+    return(check);
+    }  
+
+public static void playAndStopSong(String songName, String identifier){
         try{
             
         File file = new File(songName);

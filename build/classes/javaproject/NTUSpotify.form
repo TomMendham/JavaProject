@@ -539,10 +539,8 @@
                   <SubComponents>
                     <Component class="javax.swing.JList" name="sharedSongs">
                       <Properties>
-                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                          <StringArray count="1">
-                            <StringItem index="0" value="Be Happy"/>
-                          </StringArray>
+                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="SharedSongsListModel" type="code"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -920,19 +918,19 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane8" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="chatjLabel" max="32767" attributes="0"/>
-                              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                              <Component id="namejLabel" max="32767" attributes="0"/>
-                              <EmptySpace min="-2" pref="511" max="-2" attributes="0"/>
+                              <Component id="chatjLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="nameLabel" pref="63" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="551" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="messagejLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="messagejTextField" max="32767" attributes="0"/>
+                              <Component id="messageTextField" max="32767" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="sendjButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="sendMessageButton" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" max="-2" attributes="0"/>
-                              <Component id="backjButton" min="-2" max="-2" attributes="0"/>
+                              <Component id="backButton" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -945,15 +943,15 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="chatjLabel" alignment="3" max="32767" attributes="0"/>
-                          <Component id="namejLabel" alignment="3" max="32767" attributes="0"/>
+                          <Component id="nameLabel" alignment="3" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Component id="jScrollPane8" pref="195" max="32767" attributes="0"/>
+                      <Component id="jScrollPane8" pref="201" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="messagejTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="sendjButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="backjButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="messageTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="sendMessageButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="backButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="messagejLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -967,22 +965,25 @@
                 <Property name="text" type="java.lang.String" value="Chat: "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="namejLabel">
+            <Component class="javax.swing.JLabel" name="nameLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Name"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="messagejTextField">
+            <Component class="javax.swing.JTextField" name="messageTextField">
             </Component>
             <Component class="javax.swing.JLabel" name="messagejLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Message:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="sendjButton">
+            <Component class="javax.swing.JButton" name="sendMessageButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Send"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="sendMessageButtonActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane8">
               <AuxValues>
@@ -999,12 +1000,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="backjButton">
+            <Component class="javax.swing.JButton" name="backButton">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Back"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backjButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="backButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
