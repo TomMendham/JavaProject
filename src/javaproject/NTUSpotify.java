@@ -31,7 +31,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     DefaultListModel<String> SharedSongsListModel;
     SocketClient socketClient = new SocketClient();
     ExecutorService music = Executors.newFixedThreadPool(4);
-    
+    java.util.Timer timer = new java.util.Timer();
     
     public NTUSpotify() {
         
@@ -810,7 +810,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         
         userInformationPane.setText(userInformation);
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
-        java.util.Timer timer = new java.util.Timer();
+        timer = new java.util.Timer();
         timer.schedule(new TimerTask() 
         {
              @Override
@@ -901,6 +901,8 @@ public class NTUSpotify extends javax.swing.JFrame {
         String username = usernameField.getText();
         socketClient.request("logoutUser",username);
         this.setTitle("NTU Music Network");
+        timer.cancel();
+        timer.purge();
         mainPanel.removeAll();
         mainPanel.add(logIn);
         mainPanel.repaint();

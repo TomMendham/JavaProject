@@ -306,12 +306,11 @@ public static String getDetails(String friend, String fileName){
                if (splitLine.length>1)
                {
                    content = splitLine[1];
-               }
-               else
-               {
-                   content = "No Requests";
-               }   
+               } 
             }
+        }
+        if (content == null){
+            content = "No Requests";
         }
         br.close();
     } 
