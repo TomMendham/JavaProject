@@ -6,6 +6,8 @@
 package javaproject;
 import java.awt.*;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.*;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -29,6 +31,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     DefaultListModel<String> SharedSongsListModel;
     SocketClient socketClient = new SocketClient();
     ExecutorService music = Executors.newFixedThreadPool(4);
+    
     
     public NTUSpotify() {
         
@@ -779,8 +782,21 @@ public class NTUSpotify extends javax.swing.JFrame {
         String isCorrect = socketClient.request("checkCredentials",message);
         if (isCorrect.equals("correct"))
         {
+            
         socketClient.request("loginUser", username);
         this.setTitle("NTU Music Network - "+ username);
+        
+        //Get working directory
+        Path currentRelativePath = Paths.get("");
+        String workingDirectory = currentRelativePath.toAbsolutePath().toString();
+        
+        //Setting the user icon        
+        String setIcon = socketClient.request("getFileNames",username + "-" + "userIcon.txt");
+        if (setIcon != "")
+        {
+        ImageIcon icon = new ImageIcon(workingDirectory+"\\Icons\\"+setIcon); 
+        profilePic.setIcon(icon);            
+        }   
         
         //Get user information and display it
         String content = socketClient.request("getUserInformation",username);
@@ -794,8 +810,8 @@ public class NTUSpotify extends javax.swing.JFrame {
         
         userInformationPane.setText(userInformation);
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
-        java.util.Timer t = new java.util.Timer();
-        t.schedule(new TimerTask() 
+        java.util.Timer timer = new java.util.Timer();
+        timer.schedule(new TimerTask() 
         {
              @Override
              public void run() 
@@ -833,13 +849,7 @@ public class NTUSpotify extends javax.swing.JFrame {
             }
         }, 0, 10000);
         
-        //Setting the user icon
-        String setIcon = socketClient.request("getFileNames",username + "-" + "userIcon.txt");
-        if (setIcon != "")
-        {
-        ImageIcon icon = new ImageIcon(setIcon); 
-        profilePic.setIcon(icon);            
-        }        
+            
         
         ConnectionLabel.setText("");
         mainPanel.removeAll();
@@ -1040,7 +1050,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         String fileName = f.getName();
         String userName = usernameField.getText();
         
-        socketClient.request("uploadFiles",filePath);
+        socketClient.request("uploadFiles",filePath+"-Music");
         String check = socketClient.request("linkFiles",userName + "-" + fileName + "-" + "userSongs.txt");
         
         currentSongLabel.setText(check);
@@ -1089,7 +1099,11 @@ public class NTUSpotify extends javax.swing.JFrame {
         String fileName = f.getName();
         String userName = usernameField.getText();
         
-        socketClient.request("uploadFiles",filePath);
+        socketClient.request("uploadFiles",filePath+"-Icons");
+        
+        //Get working directory
+        Path currentRelativePath = Paths.get("");
+        String workingDirectory = currentRelativePath.toAbsolutePath().toString();
         
         String check = socketClient.request("linkFiles",userName + "-" + fileName + "-" + "userIcon.txt");
         
@@ -1097,7 +1111,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         {
             //Setting the user icon
             String setIcon = socketClient.request("getFileNames",userName + "-" + "userIcon.txt");
-            ImageIcon icon = new ImageIcon(setIcon); 
+            ImageIcon icon = new ImageIcon(workingDirectory+"\\Icons\\"+setIcon); 
             profilePic.setIcon(icon); 
         }
 

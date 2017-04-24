@@ -7,6 +7,7 @@ package javaproject;
 import java.net.*;
 import java.io.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ import javazoom.jl.player.Player;
 public class SocialNetworkServer implements Runnable {
     private Socket connection;
     private static Player player;
-        
+         
      public static void main(String[] args) {
         int port = 19999;
     try{
@@ -138,7 +139,7 @@ public void run() {
           }
           else if (identifier.equals("uploadFiles"))
           {
-              SocialNetworkServer.uploadFiles(content[0]);
+              SocialNetworkServer.uploadFiles(content[0],content[1]);
               osw.write("COMPLETE" + (char)14);
           }
           else if (identifier.equals("linkFiles"))
@@ -342,7 +343,6 @@ public static String getUserDetails(String user){
     
   return content;
 }
-
 public static String getFileNames(String user, String folderName){
     String content ="";
     
@@ -364,13 +364,14 @@ public static String getFileNames(String user, String folderName){
     
   return content;
 }
-
-public static void uploadFiles(String filePath){
+public static void uploadFiles(String filePath, String folder){
     try{
 
     	   File afile =new File(filePath);
+           Path currentRelativePath = Paths.get("");
+           String workingDirectory = currentRelativePath.toAbsolutePath().toString();
 
-    	   if(afile.renameTo(new File("C:\\Users\\user\\Desktop\\java\\JavaProject\\" + afile.getName()))){
+    	   if(afile.renameTo(new File(workingDirectory+"\\"+folder+"\\" + afile.getName()))){
     		System.out.println("File is moved successfuly!");
     	   }else{
     		System.out.println("File has failed to move! ");
@@ -380,7 +381,6 @@ public static void uploadFiles(String filePath){
     		e.printStackTrace();
     	}
 }
-
 public static String linkFiles(String username, String fileName, String folderName){
     
     String check = "";
@@ -468,7 +468,6 @@ public static String linkFiles(String username, String fileName, String folderNa
     catch (IOException g) {}
     return(check);
     }  
-
 public static void removeLineFromFile(String file, String lineToRemove) {
 
     try {
@@ -508,8 +507,6 @@ public static void removeLineFromFile(String file, String lineToRemove) {
         ex.printStackTrace();
     }
 }
-
-
 public static void playAndStopSong(String songName, String identifier){
         try{
             
