@@ -82,12 +82,12 @@ public void run() {
           }
           else if(identifier.equals("updateLoginList"))
           {
-              String usernames = SocialNetworkServer.updateList("activeusers.txt");
+              String usernames = SocialNetworkServer.updateList("activeusers.txt", "");
               osw.write(usernames + (char)14);
           }
           else if(identifier.equals("updatePostList"))
           {
-              String post = SocialNetworkServer.updateList("userPosts.txt");
+              String post = SocialNetworkServer.updateList("userPosts.txt", parts[1]);
               osw.write(post + (char)14);
           }
           else if(identifier.equals("registering"))
@@ -273,9 +273,43 @@ public static void logout(String username){
     catch (UnsupportedEncodingException f) {} 
     catch (IOException g) {}
 }
-public static String updateList(String fileName) throws IOException{
-  String content = new String(Files.readAllBytes(Paths.get(fileName)));
-  return content;
+public static String updateList(String fileName, String names) throws IOException{
+    
+    String content = "";
+    String actualName = "";
+    
+    if (names != "")
+    {
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String line = null;
+            //Separating the friends names
+            String[] nameArray = names.split("-");
+
+            while ((line = br.readLine())!= null)
+            {
+                for (int i = 0; i < nameArray.length; i++)
+                {
+                        //Comparing the friends names with the names of the post creators
+                        String[] splitLine = line.split("-");
+                        actualName = splitLine[1];
+                        if (actualName.equals(" " + nameArray[i]+ " "))
+                        {
+                            //Addint a post line which is made by a friend of the user
+                            content += line + "-";
+                        }
+                }
+            }
+            br.close();
+        }
+        catch(IOException e){}
+        }
+    else
+    {
+    content = new String(Files.readAllBytes(Paths.get(fileName)));
+    }
+  
+    return content;
 }
 public static void post(String username, String post){
     
@@ -508,8 +542,12 @@ public static void removeLineFromFile(String file, String lineToRemove) {
 }
 public static void playAndStopSong(String songName, String identifier){
         try{
+        
+        //Get working directory
+        Path currentRelativePath = Paths.get("");
+        String workingDirectory = currentRelativePath.toAbsolutePath().toString();
             
-        File file = new File(songName);
+        File file = new File(workingDirectory+"\\Music\\"+songName);
         FileInputStream fis = new FileInputStream(file);
         BufferedInputStream bis = new BufferedInputStream(fis);
         
