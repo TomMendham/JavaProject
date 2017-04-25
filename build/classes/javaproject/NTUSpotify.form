@@ -628,6 +628,9 @@
                     <Component class="javax.swing.JTextPane" name="friendInformationPane">
                       <Properties>
                         <Property name="editable" type="boolean" value="false"/>
+                        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                          <Dimension value="[6, 20]"/>
+                        </Property>
                       </Properties>
                     </Component>
                   </SubComponents>

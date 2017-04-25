@@ -415,6 +415,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         jScrollPane1.setViewportView(userInformationPane);
 
         friendInformationPane.setEditable(false);
+        friendInformationPane.setMaximumSize(new java.awt.Dimension(6, 20));
         jScrollPane11.setViewportView(friendInformationPane);
 
         friendList.setModel(FriendListModel);
@@ -741,17 +742,9 @@ public class NTUSpotify extends javax.swing.JFrame {
         profilePicUser.setText(" "+username);
         }   
         
-        //Get user information and display it
-        String content = socketClient.request("getUserInformation",username);
-        String[] information = content.split("-");
-        String userInformation = "Your information:\r\n";
+        //Displaying user info
+        userInformationPane.setText(getUserInfo(username));
         
-        for (int i = 0; i<information.length;i++)
-        {
-            userInformation+= information[i]+"\r\n";
-        }
-        
-        userInformationPane.setText(userInformation);
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
         timer = new java.util.Timer();
         timer.schedule(new TimerTask() 
@@ -800,14 +793,9 @@ public class NTUSpotify extends javax.swing.JFrame {
                         String individualPosts = splitPosts[i] + splitPosts[i+1]+ "-" + splitPosts[i+2]; 
                         postTextArea.append(individualPosts + "\n");
                     }
-                }
-                
-                
-                
+                }     
             }
         }, 0, 10000);
-        
-            
         
         ConnectionLabel.setText("");
         mainPanel.removeAll();
@@ -878,7 +866,12 @@ public class NTUSpotify extends javax.swing.JFrame {
         
         String songName = currentSongLabel.getText();
         //Stop the curently playing song
-        socketClient.request("playAndStopSong",songName + "-" + "stop");  
+        socketClient.request("playAndStopSong",songName + "-" + "stop");
+        
+        //Clearing the information list after the user logs out
+        SharedSongsListModel.clear();
+        friendInformationPane.setText("");
+        
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
@@ -1037,25 +1030,17 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     private void friendListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_friendListValueChanged
         boolean x = evt.getValueIsAdjusting();
-        
+        //Making sure that the information stays displayed until a new name is selected
         if (x)
         {
         String loggedInUser = usernameField.getText();
         String name = friendList.getSelectedValue();
-        String content = socketClient.request("getUserInformation",name);
         //Getting the music linked to the selected friend and the music linked to the logged in user
         String uploadedMusic = socketClient.request("getFileNames",name + "-" + "userSongs.txt");
         String loggedInUserMusic = socketClient.request("getFileNames",loggedInUser + "-" + "userSongs.txt");
-        
-        String[] information = content.split("-");
-        String friendInformation = "Friend information:\n";
-        
-        for (int i = 0; i<information.length;i++)
-        {
-            friendInformation+= information[i]+"\n";
-        }
-        friendInformationPane.setText(friendInformation);
-        
+
+        //Displaying user info
+        friendInformationPane.setText(getUserInfo(name));
         
         SharedSongsListModel.clear();
         
@@ -1084,7 +1069,6 @@ public class NTUSpotify extends javax.swing.JFrame {
             profilePicFriend.setText(" "+name);            
         }
         }
-
     }//GEN-LAST:event_friendListValueChanged
 
     private void uploadPicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPicButtonActionPerformed
@@ -1130,6 +1114,24 @@ public class NTUSpotify extends javax.swing.JFrame {
         socketClient.request("logoutUser",username);
     }//GEN-LAST:event_formWindowClosing
 
+    private String getUserInfo(String name)
+    {
+        //Get user information
+        String content = socketClient.request("getUserInformation",name);
+        //Spliting user information
+        String[] information = content.split("-");
+        //Spliting the genres
+        String[] genresSep = information[1].split("_");
+        String userInformation = "Your information:\r\n";
+        //Display user information
+        for (int i = 0; i<genresSep.length;i++)
+        {
+            userInformation+= genresSep[i]+"\n";
+        }
+        
+        return userInformation;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddButton;
     private javax.swing.JButton CancelButton;
