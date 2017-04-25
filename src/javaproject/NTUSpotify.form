@@ -110,7 +110,7 @@
                               <Component id="usernameField" min="-2" pref="107" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="258" max="32767" attributes="0"/>
+                      <EmptySpace pref="305" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -236,10 +236,10 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="AddButton" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="DeleteButton" alignment="0" pref="148" max="32767" attributes="0"/>
+                                  <Component id="DeleteButton" alignment="0" pref="159" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="jScrollPane2" pref="280" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" pref="312" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -456,27 +456,25 @@
                                   <Component id="currentSongLabel" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="16" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="informationLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="jScrollPane11" alignment="0" pref="180" max="32767" attributes="0"/>
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
+                              <Component id="jScrollPane11" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="180" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jScrollPane3" min="-2" pref="182" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="uploadPicButton" linkSize="1" min="-2" max="-2" attributes="0"/>
-                                      <Component id="logoutButton" linkSize="1" min="-2" pref="73" max="-2" attributes="0"/>
-                                      <Component id="profilePicFriend" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="profilePicUser" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="jScrollPane3" alignment="0" min="-2" pref="182" max="-2" attributes="0"/>
                               <Component id="sharedSongsLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="24" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="uploadPicButton" linkSize="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="logoutButton" linkSize="1" min="-2" pref="73" max="-2" attributes="0"/>
+                              <Component id="profilePicFriend" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="profilePicUser" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -496,7 +494,7 @@
                                   <Component id="profilePicFriend" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="profilePicUser" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                                   <Component id="uploadPicButton" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="logoutButton" min="-2" max="-2" attributes="0"/>
@@ -773,7 +771,7 @@
                               </Group>
                               <Component id="connectedPeoplejLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="77" max="32767" attributes="0"/>
+                          <EmptySpace pref="81" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="requestsjLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="jScrollPane7" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
@@ -934,7 +932,7 @@
                           <Group type="102" attributes="0">
                               <Component id="chatjLabel" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="nameLabel" pref="63" max="32767" attributes="0"/>
+                              <Component id="nameLabel" pref="74" max="32767" attributes="0"/>
                               <EmptySpace min="-2" pref="551" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
