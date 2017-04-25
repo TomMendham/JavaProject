@@ -67,7 +67,7 @@ public void run() {
           if (identifier.equals("checkCredentials"))
           {
           //Check credentials and write the output
-          String returnCode = SocialNetworkServer.checkCredentials("input.txt", content[0], content[1], content[2]);
+          String returnCode = SocialNetworkServer.checkCredentials("userDetails.txt", content[0], content[1], content[2]);
           osw.write(returnCode + (char)14);
           }
           else if(identifier.equals("loginUser"))
@@ -92,7 +92,7 @@ public void run() {
           }
           else if(identifier.equals("registering"))
           {
-              SocialNetworkServer.registering("input.txt",content[0], content[1], content[2], content[3]);
+              SocialNetworkServer.registering("userDetails.txt",content[0], content[1], content[2], content[3]);
               osw.write("COMPLETE" + (char)14);
           }
           else if(identifier.equals("makePost"))
@@ -357,7 +357,7 @@ public static String getUserDetails(String user){
     String content ="";
     
     try{
-       BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+       BufferedReader br = new BufferedReader(new FileReader("userDetails.txt"));
        String line = null;
         while ((line = br.readLine())!= null){
             String splitLine[] = line.split("-");

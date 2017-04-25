@@ -729,21 +729,18 @@ public class NTUSpotify extends javax.swing.JFrame {
         socketClient.request("loginUser", username);
         this.setTitle("NTU Music Network - "+ username);
         
-        //Get working directory
-        Path currentRelativePath = Paths.get("");
-        String workingDirectory = currentRelativePath.toAbsolutePath().toString();
-        
         //Setting the user icon        
         String setIcon = socketClient.request("getFileNames",username + "-" + "userIcon.txt");
         if (setIcon != "")
         {
-        ImageIcon icon = new ImageIcon(workingDirectory+"\\Icons\\"+setIcon); 
+        ImageIcon icon = new ImageIcon(getWorkingDirectory()+"\\Icons\\"+setIcon); 
         profilePicUser.setIcon(icon);
         profilePicUser.setText(" "+username);
         }   
         
         //Displaying user info
-        userInformationPane.setText(getUserInfo(username));
+        String userInformation = "Your information:\r\n";
+        userInformationPane.setText(userInformation + getUserInfo(username));
         
         //Timer to run update functions once user has logged in i.e. updating online list, friend requests
         timer = new java.util.Timer();
@@ -994,12 +991,26 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     private void chatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatjButtonActionPerformed
         ChatWindow chat;
-        try {
-            chat = new ChatWindow(usernameField.getText()+"~"+connectedPeopleList.getSelectedValue());
-            chat.setVisible(true);
-            chat.setDefaultCloseOperation(ChatWindow.DISPOSE_ON_CLOSE);
-        } catch (InterruptedException ex) {
-            
+        if(connectedPeopleList.getSelectedValue() != null)
+        {
+            if (connectedPeopleList.getSelectedValue().equals(usernameField.getText()))
+            {
+                friendRequestStatusLabel.setText("Cannot chat with your self.");
+
+            }
+            else
+            {
+                try {
+                    chat = new ChatWindow(usernameField.getText()+"~"+connectedPeopleList.getSelectedValue());
+                    chat.setVisible(true);
+                    chat.setDefaultCloseOperation(ChatWindow.DISPOSE_ON_CLOSE);
+                } catch (InterruptedException ex) {
+                }
+            }
+        }
+        else
+        {
+            friendRequestStatusLabel.setText("Select a user.");
         }
     }//GEN-LAST:event_chatjButtonActionPerformed
 
@@ -1052,7 +1063,8 @@ public class NTUSpotify extends javax.swing.JFrame {
         String loggedInUserMusic = socketClient.request("getFileNames",loggedInUser + "-" + "userSongs.txt");
 
         //Displaying user info
-        friendInformationPane.setText(getUserInfo(name));
+        String userInformation = "Friend information:\r\n";
+        friendInformationPane.setText((userInformation + getUserInfo(name)));
         
         SharedSongsListModel.clear();
         
@@ -1068,13 +1080,9 @@ public class NTUSpotify extends javax.swing.JFrame {
             SharedSongsListModel.addElement(uploadedMusicList[i]);
         }
         
-        //Get working directory
-        Path currentRelativePath = Paths.get("");
-        String workingDirectory = currentRelativePath.toAbsolutePath().toString();
-        
         //Setting the user icon
         String setIcon = socketClient.request("getFileNames",name + "-" + "userIcon.txt");
-        ImageIcon icon = new ImageIcon(workingDirectory+"\\Icons\\"+setIcon);
+        ImageIcon icon = new ImageIcon(getWorkingDirectory()+"\\Icons\\"+setIcon);
         if (name != null)
         {
             profilePicFriend.setIcon(icon);
@@ -1085,10 +1093,6 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     private void uploadPicButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPicButtonActionPerformed
          profilePicUser.setIcon(null);
-
-        //Get working directory
-        Path currentRelativePath = Paths.get("");
-        String workingDirectory = currentRelativePath.toAbsolutePath().toString();
         
         //Setting up the file chooser
         JFileChooser chooser = new JFileChooser();
@@ -1103,7 +1107,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         String iconPresent = socketClient.request("getFileNames",userName + "-" + "userIcon.txt");
         if (iconPresent != "")
         {
-             socketClient.request("uploadFiles",workingDirectory+"\\Icons\\"+iconPresent+"-storage");
+             socketClient.request("uploadFiles",getWorkingDirectory()+"\\Icons\\"+iconPresent+"-storage");
         }
         
         //Upload the pic to the Icons folder
@@ -1115,15 +1119,19 @@ public class NTUSpotify extends javax.swing.JFrame {
         {
             //Setting the user icon
             String setIcon = socketClient.request("getFileNames",userName + "-" + "userIcon.txt");
-            ImageIcon icon = new ImageIcon(workingDirectory+"\\Icons\\"+setIcon); 
+            ImageIcon icon = new ImageIcon(getWorkingDirectory()+"\\Icons\\"+setIcon); 
             profilePicUser.setIcon(icon);
             profilePicUser.setText(" "+userName);
         }
     }//GEN-LAST:event_uploadPicButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        String songName = currentSongLabel.getText();
+        //Stop the curently playing song
+        socketClient.request("playAndStopSong",songName + "-" + "stop");
+        
         String username = usernameField.getText();
-        socketClient.request("logoutUser",username);
+        socketClient.request("logoutUser",username);  
     }//GEN-LAST:event_formWindowClosing
 
     private String getUserInfo(String name)
@@ -1132,9 +1140,10 @@ public class NTUSpotify extends javax.swing.JFrame {
         String content = socketClient.request("getUserInformation",name);
         //Spliting user information
         String[] information = content.split("-");
+        String userInformation = information[0]+"\n";
         //Spliting the genres
         String[] genresSep = information[1].split("_");
-        String userInformation = "Your information:\r\n";
+
         //Display user information
         for (int i = 0; i<genresSep.length;i++)
         {
@@ -1142,6 +1151,14 @@ public class NTUSpotify extends javax.swing.JFrame {
         }
         
         return userInformation;
+    }
+    
+    private String getWorkingDirectory()
+    {
+        //Get working directory
+        Path currentRelativePath = Paths.get("");
+        String workingDirectory = currentRelativePath.toAbsolutePath().toString();
+        return workingDirectory;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
