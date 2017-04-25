@@ -21,7 +21,7 @@ public class SocketClient {
  public String request(String identifier, String messageToSend){
      /*Function used to only send requests across server i.e. update login list or update friend requests*/
      try {
-         //Check to see if chat
+         //Check to see if chat is needed for chat server
          if (identifier.equals("createchat")){
              chat = new chatClient();
              Thread t = new Thread(chat);
@@ -67,6 +67,7 @@ public class SocketClient {
 return("");
  }
  class chatClient extends Thread {
+     //Variables for chat client
     DataOutputStream output;
     DataInputStream input;
     Socket connection;
@@ -77,12 +78,14 @@ return("");
     @Override
     public void run(){
         try {
+            //Setup port and address
             port = 19998;
             InetAddress address = InetAddress.getByName(host);
             connection = new Socket(address,port);
             //Setup output stream and input stream
             output = new DataOutputStream(connection.getOutputStream());
             input = new DataInputStream(connection.getInputStream());
+            //Start listener on new thread to recieve inbound messages
             listener = new chatListener(input);
             Thread l = new Thread(listener);
             l.start();
@@ -93,6 +96,7 @@ return("");
     }
     
     public void sendMessage(String message){
+        //Sends a message to server with string content
             try {
                 output.writeUTF (message);
             } catch (IOException ex) {
@@ -102,6 +106,8 @@ return("");
     }
     
     public class chatListener extends Thread{
+        //Listens for inbound messages for server
+        //Built on thread to always be open and listening.
         DataInputStream input;
         String message = "";
         public chatListener(DataInputStream _input){
@@ -111,6 +117,7 @@ return("");
         public void run(){
             while(true){
                 try {
+                    //Read in current content
                     message = input.readUTF();
                 } catch (IOException ex) {
                 }
@@ -118,6 +125,7 @@ return("");
         }
     }
 public chatClient returnClient(){
+    //Return chat object to intialise on new JFrame
     return chat;
 }
 }

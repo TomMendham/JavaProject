@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Thomas
  */
 public class ChatServer {
-private static ArrayList<ServerHandler.userTarget> ul = new ArrayList<ServerHandler.userTarget>();
+private static ArrayList<ServerHandler.connectedUser> ul = new ArrayList<ServerHandler.connectedUser>();
 
     public static void main(String[] args) {
         try {
@@ -22,6 +22,7 @@ private static ArrayList<ServerHandler.userTarget> ul = new ArrayList<ServerHand
             ServerSocket ss = new ServerSocket(port);
             System.out.println("Chat Server: RUNNING");
             while (true) {
+              //Create a new socket handler thread with connection from socket
               Socket connection = ss.accept();
               ServerHandler sh = new ServerHandler(connection,ul);
               Thread thread = new Thread(sh);

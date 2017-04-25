@@ -7,15 +7,14 @@ package javaproject;
 import java.io.*;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 /**
  *
  * @author Thomas
  */
 public class ServerHandler extends Thread {
     Socket connection;
-    ArrayList<userTarget> ul = new ArrayList<userTarget>();
+    ArrayList<connectedUser> ul = new ArrayList<connectedUser>();
     
     public ServerHandler(Socket _connection, ArrayList _ul){
         this.connection = _connection;
@@ -29,32 +28,42 @@ public class ServerHandler extends Thread {
             //Read in from input stream reader
             String message = "";
             while(true) {
+                //Read in message and split
                 message = is.readUTF();
                 String details[] = message.split("~");
                 //Check for setting up a user
                 if (details[0].equals("setup"))
                 {
                    //Add an array with users socket and username
-                   userTarget u = new userTarget(connection,details[1]);
+                   connectedUser u = new connectedUser(connection,details[1]);
                    ul.add(u);
-                   System.out.println("User added: "+details[1]+": "+ul.size());
+                   //Output connected back to chat client
+                   DataOutputStream os = new DataOutputStream(connection.getOutputStream());
+                   os.writeUTF("connected");
                 }
-                
-                System.out.println(connection+":"+message);
-                
+                else
+                {
+                //Loop over user list
                 for (int i =0; i<ul.size();i++){
+                    //Check if username is correct username and write to this client
+                    if (ul.get(i).username.equals(details[1]))
+                    {
+                    //If correct username is found send a message with current username and message content to client
                     DataOutputStream os = new DataOutputStream(ul.get(i).socket.getOutputStream());
-                    os.writeUTF(message);  
+                    os.writeUTF(details[0]+"~"+details[2]);     
+                    }
+                }
                 }
             }            
         } 
         catch (IOException ex) {
         } 
     }
-    public class userTarget{
+    public class connectedUser{
+        //Class for storing connected users with their socket and username
         Socket socket;
         String username;
-        public userTarget(Socket _connection, String _username){
+        public connectedUser(Socket _connection, String _username){
             socket = _connection;
             username = _username;
         }

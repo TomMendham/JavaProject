@@ -8,6 +8,7 @@ package javaproject;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javaproject.SocketClient;
 import javaproject.SocketClient.chatClient;
 
 /**
@@ -18,6 +19,8 @@ public class ChatWindow extends javax.swing.JFrame {
     //Decleration of chat client and array
     chatClient cc;
     String details[];
+    String user;
+    String friend;
     /**
      * Creates new form ChatWindow
      */
@@ -25,8 +28,11 @@ public class ChatWindow extends javax.swing.JFrame {
     public ChatWindow(String data) throws InterruptedException {
         initComponents();
         details = data.split("~");
-        nameLabel.setText(details[1]);
+        user = details[0];
+        friend = details[1];
+        nameLabel.setText(friend);
         connectToServer();
+        this.setTitle("NTU Music Network - "+ user);
         Thread.sleep(1000);
         addToList();
         listen();
@@ -47,26 +53,39 @@ public class ChatWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         chat = new javax.swing.JPanel();
+        sendMessageButton = new javax.swing.JButton();
         chatjLabel = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
-        messagejLabel = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         messagesTextArea = new javax.swing.JTextArea();
-        sendMessageButton = new javax.swing.JButton();
         messageTextField = new javax.swing.JTextField();
+        messagejLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        chatjLabel.setText("Chat: ");
+        sendMessageButton.setText("Send");
+        sendMessageButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sendMessageButtonActionPerformed(evt);
+            }
+        });
+
+        chatjLabel.setText("Chatting to: ");
 
         nameLabel.setText("Name");
-
-        messagejLabel.setText("Message:");
 
         messagesTextArea.setEditable(false);
         messagesTextArea.setColumns(20);
         messagesTextArea.setRows(5);
         jScrollPane8.setViewportView(messagesTextArea);
+
+        messageTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                messageTextFieldActionPerformed(evt);
+            }
+        });
+
+        messagejLabel.setText("Message:");
 
         javax.swing.GroupLayout chatLayout = new javax.swing.GroupLayout(chat);
         chat.setLayout(chatLayout);
@@ -81,10 +100,14 @@ public class ChatWindow extends javax.swing.JFrame {
                         .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(561, 561, 561))
                     .addGroup(chatLayout.createSequentialGroup()
-                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(chatLayout.createSequentialGroup()
-                        .addComponent(messagejLabel)
+                        .addGroup(chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chatLayout.createSequentialGroup()
+                                .addComponent(messagejLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(messageTextField)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sendMessageButton)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         chatLayout.setVerticalGroup(
@@ -95,59 +118,47 @@ public class ChatWindow extends javax.swing.JFrame {
                     .addComponent(chatjLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(nameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-                .addGap(21, 21, 21)
-                .addComponent(messagejLabel))
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(chatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(sendMessageButton)
+                    .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(messagejLabel))
+                .addContainerGap())
         );
-
-        sendMessageButton.setText("Send");
-        sendMessageButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendMessageButtonActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(69, 69, 69)
-                .addComponent(messageTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 364, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(sendMessageButton)
-                .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chat, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(chat, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(sendMessageButton)
-                    .addComponent(messageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(chat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void sendMessageButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendMessageButtonActionPerformed
-        
+            //Get the name of sender and reciever and send a message to server
             String receiver = nameLabel.getText();
             String sendingMessage = messageTextField.getText();
             messagesTextArea.append(details[0]+": "+sendingMessage);
-            cc.sendMessage(details[0]+"~"+details[1]+"~"+sendingMessage);
+            messagesTextArea.append("\n");
+            messageTextField.setText("");
+            cc.sendMessage(user+"~"+friend+"~"+sendingMessage);
     }//GEN-LAST:event_sendMessageButtonActionPerformed
+
+    private void messageTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_messageTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_messageTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,19 +203,37 @@ public class ChatWindow extends javax.swing.JFrame {
     }
     
     public void addToList(){
-        cc.sendMessage("setup"+"~"+details[0]);
+        //add current user to server list of conneected users
+        cc.sendMessage("setup"+"~"+user);
     }
     
     public void listen(){
+        //Listen for a connection every 2 seconds
         java.util.Timer t = new java.util.Timer();
         t.schedule(new TimerTask()
         {
         @Override
              public void run() 
              {
+                //Get the replies from the client listener
                 String reply = cc.listener.message;
                 if (!reply.equals("")){
-                    messagesTextArea.append(details[1]+": "+reply);
+                    //if the reply is connected (appending user to array list)
+                    if (cc.listener.message.equals("connected"))
+                    {
+                        messagesTextArea.append("You are now connected to the chat server");
+                    }
+                    else
+                    {
+                    //split inbound message
+                    String[] messageDetails = reply.split("~");
+                        if (messageDetails[0].equals(friend))
+                            {
+                            //if message is from right friend append it to text
+                            messagesTextArea.append(friend+": "+messageDetails[1]);
+                            }
+                    }
+                    messagesTextArea.append("\n");
                     cc.listener.message = "";
                 }
              }
