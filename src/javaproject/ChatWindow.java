@@ -222,6 +222,7 @@ public class ChatWindow extends javax.swing.JFrame {
                     if (cc.listener.message.equals("connected"))
                     {
                         messagesTextArea.append("You are now connected to the chat server");
+                        messagesTextArea.append("\n");
                     }
                     else
                     {
@@ -231,9 +232,10 @@ public class ChatWindow extends javax.swing.JFrame {
                             {
                             //if message is from right friend append it to text
                             messagesTextArea.append(friend+": "+messageDetails[1]);
+                            messagesTextArea.append("\n");
                             }
                     }
-                    messagesTextArea.append("\n");
+                    
                     cc.listener.message = "";
                 }
              }

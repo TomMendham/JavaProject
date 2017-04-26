@@ -32,6 +32,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     SocketClient socketClient = new SocketClient();
     ExecutorService music = Executors.newFixedThreadPool(4);
     java.util.Timer timer = new java.util.Timer();
+    String isCorrect = "";
     
     public NTUSpotify() {
         
@@ -692,12 +693,27 @@ public class NTUSpotify extends javax.swing.JFrame {
         RegisterPasswordField.setText("");
         DOBTextField.setText("");
         GenreListModel.removeAllElements();
+        StatusLabel.setText("");
        
     }//GEN-LAST:event_CancelButtonActionPerformed
 
     private void AddButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButtonActionPerformed
         String genre = GenreComboBox.getSelectedItem().toString();
-        GenreListModel.addElement(genre);
+        boolean added = false;
+        //Check if the genre was already added
+        for(int i = 0; i < GenreList.getModel().getSize(); i++)
+        {
+            if (genre.equals(GenreList.getModel().getElementAt(i)))
+            {
+               added = true;
+               StatusLabel.setText("The genre is already in your list");
+            } 
+        }
+        if (added == false)
+        {
+            GenreListModel.addElement(genre);            
+        }
+
     }//GEN-LAST:event_AddButtonActionPerformed
 
     private void usernameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameTextFieldActionPerformed
@@ -722,7 +738,7 @@ public class NTUSpotify extends javax.swing.JFrame {
         String username = usernameField.getText();
         String password = PasswordField.getText();
         String message = username + "-" + password + "-" + "L";
-        String isCorrect = socketClient.request("checkCredentials",message);
+        isCorrect = socketClient.request("checkCredentials",message);
         if (isCorrect.equals("correct"))
         {
             
@@ -749,12 +765,14 @@ public class NTUSpotify extends javax.swing.JFrame {
              @Override
              public void run() 
              {
+                //Setup online users
                 OnlineListModel.removeAllElements();
                 String usernames = socketClient.request("updateLoginList","nodata-nodata");
                 String[] usernameList = usernames.split("-");
                 
                 for (int i = 0; i < usernameList.length; i++)
                 {
+                    //Formatting names
                     if (i != 0)
                     {
                     StringBuilder sb = new StringBuilder(usernameList[i]);
@@ -769,7 +787,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                         OnlineListModel.addElement(usernameList[i]);
                     }
                 }
-
+                //Setup friends list model
                 FriendListModel.removeAllElements();
                 String friends = socketClient.request("updateFriendList", username);
                 String[] friendNames = friends.split("-");
@@ -777,7 +795,8 @@ public class NTUSpotify extends javax.swing.JFrame {
                 for (int i = 0; i<friendNames.length; i++){
                     FriendListModel.addElement(friendNames[i]);
                 }
-
+                
+                //Setup friend reqeust model
                 String friendRequest = socketClient.request("getFriendRequest",username);
                 if (!friendRequest.equals("No Requests"))
                 {
@@ -794,6 +813,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                 //Split the individual posts.
                 String[] splitPosts = posts.split("-");
                 
+                //Set posts up
                 postTextArea.setText("");
                 for (int i = 0; i < splitPosts.length; i++)
                 {
@@ -804,7 +824,7 @@ public class NTUSpotify extends javax.swing.JFrame {
                     }
                 }     
             }
-        }, 0, 10000);
+        }, 0, 2000);
         
         ConnectionLabel.setText("");
         mainPanel.removeAll();
@@ -842,7 +862,7 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
         String currentSong = currentSongLabel.getText();        
-        
+       
         if (currentSong != "Current Song")
         {
             socketClient.request("playAndStopSong",currentSong + "-"+ "stop"); 
@@ -861,17 +881,22 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        //Set values request logout
         String username = usernameField.getText();
         socketClient.request("logoutUser",username);
+        //Set title
         this.setTitle("NTU Music Network");
+        //Cancel timer
         timer.cancel();
         timer.purge();
+        //Refresh page
         mainPanel.removeAll();
         mainPanel.add(logIn);
         mainPanel.repaint();
         mainPanel.revalidate();
         usernameField.setText("");
         PasswordField.setText("");
+        isCorrect = "";
         
         String songName = currentSongLabel.getText();
         //Stop the curently playing song
@@ -964,6 +989,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void sendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendButtonActionPerformed
+        //Send posts to server to make user post
         String post = postTextField.getText();
         String username = usernameField.getText();
         String message = username + "-" + post;
@@ -976,6 +1002,7 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_sharedSongsValueChanged
 
     private void requestFriendshipjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestFriendshipjButtonActionPerformed
+        //request friendship
         String friend = connectedPeopleList.getSelectedValue();
         String username = usernameField.getText();
         friend =  friend.replace("\r\n", "");
@@ -991,30 +1018,37 @@ public class NTUSpotify extends javax.swing.JFrame {
 
     private void chatjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatjButtonActionPerformed
         ChatWindow chat;
-        if(connectedPeopleList.getSelectedValue() != null)
-        {
-            if (connectedPeopleList.getSelectedValue().equals(usernameField.getText()))
+        try{
+            //Check value selected
+            if(connectedPeopleList.getSelectedValue() != null)
             {
-                friendRequestStatusLabel.setText("Cannot chat with your self.");
+                //Check its not own username
+                if (connectedPeopleList.getSelectedValue().equals(usernameField.getText()))
+                {
+                    friendRequestStatusLabel.setText("Cannot chat with your self.");
 
+                }
+                else
+                {
+                    try {
+                        //Open a new chat window
+                        chat = new ChatWindow(usernameField.getText()+"~"+connectedPeopleList.getSelectedValue());
+                        chat.setVisible(true);
+                        chat.setDefaultCloseOperation(ChatWindow.DISPOSE_ON_CLOSE);
+                    } catch (InterruptedException ex) {
+                    }
+                }
             }
             else
             {
-                try {
-                    chat = new ChatWindow(usernameField.getText()+"~"+connectedPeopleList.getSelectedValue());
-                    chat.setVisible(true);
-                    chat.setDefaultCloseOperation(ChatWindow.DISPOSE_ON_CLOSE);
-                } catch (InterruptedException ex) {
-                }
+                friendRequestStatusLabel.setText("Select a user.");
             }
         }
-        else
-        {
-            friendRequestStatusLabel.setText("Select a user.");
-        }
+        catch(NullPointerException e){}
     }//GEN-LAST:event_chatjButtonActionPerformed
 
     private void acceptjButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptjButtonActionPerformed
+        //Accept friend request
         String request = requestsList.getSelectedValue();
         RequestsListModel.removeElement(request);
         String acceptRequest = socketClient.request("acceptRequest", usernameField.getText()+"-"+request+"-"+"accept");
@@ -1126,12 +1160,15 @@ public class NTUSpotify extends javax.swing.JFrame {
     }//GEN-LAST:event_uploadPicButtonActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (!isCorrect.equals(""))
+        {
         String songName = currentSongLabel.getText();
         //Stop the curently playing song
         socketClient.request("playAndStopSong",songName + "-" + "stop");
         
         String username = usernameField.getText();
-        socketClient.request("logoutUser",username);  
+        socketClient.request("logoutUser",username);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private String getUserInfo(String name)

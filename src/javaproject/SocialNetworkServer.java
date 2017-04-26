@@ -212,7 +212,8 @@ public static String checkCredentials(String fileName, String username, String p
     return("incorrect");
     }
 public static void registering(String fileName, String username, String password, String dateOfBirth, String genresString){ 
-   try(FileWriter fw = new FileWriter(fileName, true);
+    //Write users to a file
+    try(FileWriter fw = new FileWriter(fileName, true);
        BufferedWriter bw = new BufferedWriter(fw);
        PrintWriter out = new PrintWriter(bw);)
    {
@@ -225,6 +226,7 @@ public static void registering(String fileName, String username, String password
    }
 }
 public static void login(String username){
+    //Add user to active users file
   try(FileWriter fw = new FileWriter("activeusers.txt", true);
     BufferedWriter bw = new BufferedWriter(fw);
     PrintWriter output = new PrintWriter(bw))
@@ -317,7 +319,7 @@ public static void post(String username, String post){
     DateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm");
     Date todaysDate = Calendar.getInstance().getTime();    
     String currentDate = sdf.format(todaysDate);
-    
+    //Write post to file
     try(FileWriter fw = new FileWriter("userPosts.txt", true);
     BufferedWriter bw = new BufferedWriter(fw);
     PrintWriter output = new PrintWriter(bw))
@@ -399,11 +401,12 @@ public static String getFileNames(String user, String folderName){
 }
 public static void uploadFiles(String filePath, String folder){
     try{
-
+           //Find working directory
     	   File afile =new File(filePath);
            Path currentRelativePath = Paths.get("");
            String workingDirectory = currentRelativePath.toAbsolutePath().toString();
-
+           
+           //Move user file
     	   if(afile.renameTo(new File(workingDirectory+"\\"+folder+"\\" + afile.getName()))){
     		System.out.println("File is moved successfuly!");
     	   }else{
